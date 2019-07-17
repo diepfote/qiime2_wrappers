@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_sample-classifier_maturity-index" name="qiime sample-classifier maturity-index" version="2018.4">
+<tool id="qiime_sample-classifier_maturity-index" name="qiime sample-classifier maturity-index" version="2019.4">
 	<description> - Microbial maturity index prediction.</description>
 	<requirements>
-		<requirement type="package" version="2018.4">qiime2</requirement>
+		<requirement type="package" version="2019.4">qiime2</requirement>
 	</requirements>
 	<command>
 	<![CDATA[
@@ -77,7 +77,7 @@
 	 --p-random-state="$prandomstate"
 	#end if
 	;
-	qiime tools export ovisualization.qzv --output-dir out   && mkdir -p '$ovisualization.files_path'
+	qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir -p '$ovisualization.files_path'
 	&& cp -r out/* '$ovisualization.files_path'
 	&& mv '$ovisualization.files_path/index.html' '$ovisualization'
 	]]>

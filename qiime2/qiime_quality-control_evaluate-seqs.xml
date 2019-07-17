@@ -1,48 +1,31 @@
 <?xml version="1.0" ?>
-<tool id="qiime_quality-control_evaluate-seqs" name="qiime quality-control evaluate-seqs" version="2018.4">
+<tool id="qiime_quality-control_evaluate-seqs" name="qiime quality-control evaluate-seqs" version="2019.4">
 	<description> - Compare query (observed) vs. reference (expected) sequences.</description>
 	<requirements>
-		<requirement type="package" version="2018.4">qiime2</requirement>
+		<requirement type="package" version="2019.4">qiime2</requirement>
 	</requirements>
-	<command>
-	<![CDATA[
-	qiime quality-control evaluate-seqs --i-reference-sequences=$ireferencesequences --i-query-sequences=$iquerysequences
+	<command><![CDATA[
+qiime quality-control evaluate-seqs
 
-	#if str($cmdconfig) != 'None':
-	 --cmd-config=$cmdconfig
+--i-query-sequences=$iquerysequences
+--i-reference-sequences=$ireferencesequences
 
-	#if $pshowalignments:
-		--p-show-alignments
-	#else
-		--p-no-show-alignments
-	#end if
-
-	#end if
-	 --o-visualization=ovisualization;
-
-	qiime tools export ovisualization.qzv --output-dir out   && mkdir -p '$ovisualization.files_path'
-	&& cp -r out/* '$ovisualization.files_path'
-	&& mv '$ovisualization.files_path/index.html' '$ovisualization'
-	]]>
-	</command>
+--o-visualization=ovisualization
+;
+qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir -p '$ovisualization.files_path'
+&& cp -r out/* '$ovisualization.files_path'
+&& mv '$ovisualization.files_path/index.html' '$ovisualization';
+	]]></command>
 	<inputs>
-		<param format="qza,no_unzip.zip" label="--i-query-sequences: FeatureData[Sequence] Sequences to test for exclusion  [required]" name="iquerysequences" optional="False" type="data"/>
-		<param format="qza,no_unzip.zip" label="--i-reference-sequences: FeatureData[Sequence] Reference sequences to align against feature sequences  [required]" name="ireferencesequences" optional="False" type="data"/>
-
-		<param label="  --p-show-alignments / --p-no-show-alignments
-                                  Option to plot pairwise alignments of query
-                                  sequences and their top hits.  [default:
-                                  False]" name="pshowalignments" checked="False" type="boolean"/>
-
-		<param label="--cmd-config: Use config file for command options" name="cmdconfig" optional="True" type="data"/>
+		<param format="qza,no_unzip.zip" label="--i-query-sequences: ARTIFACT FeatureData[Sequence] Sequences to test for exclusion              [required]" name="iquerysequences" optional="False" type="data"/>
+		<param format="qza,no_unzip.zip" label="--i-reference-sequences: ARTIFACT FeatureData[Sequence] Reference sequences to align against feature sequences [required]" name="ireferencesequences" optional="False" type="data"/>
 	</inputs>
 	<outputs>
 		<data format="html" label="${tool.name} on ${on_string}: visualization.qzv" name="ovisualization"/>
 	</outputs>
-	<help>
-		<![CDATA[
+	<help><![CDATA[
 Compare query (observed) vs. reference (expected) sequences.
--------------------------------------------------------------
+############################################################
 
 This action aligns a set of query (e.g., observed) sequences against a set
 of reference (e.g., expected) sequences to evaluate the quality of
@@ -66,11 +49,9 @@ show_alignments : Bool, optional
 Returns
 -------
 visualization : Visualization
-		\
-		]]>
-	</help>
+	]]></help>
 <macros>
-	<import>qiime_citation.xml</import>
+    <import>qiime_citation.xml</import>
 </macros>
-<expand macro="qiime_citation" />
+<expand macro="qiime_citation"/>
 </tool>

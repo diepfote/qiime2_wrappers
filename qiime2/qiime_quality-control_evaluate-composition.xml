@@ -1,153 +1,123 @@
 <?xml version="1.0" ?>
-<tool id="qiime_quality-control_evaluate-composition" name="qiime quality-control evaluate-composition" version="2018.4">
+<tool id="qiime_quality-control_evaluate-composition" name="qiime quality-control evaluate-composition" version="2019.4">
 	<description> - Evaluate expected vs. observed taxonomic composition of samples</description>
 	<requirements>
-		<requirement type="package" version="2018.4">qiime2</requirement>
+		<requirement type="package" version="2019.4">qiime2</requirement>
 	</requirements>
-	<command>
-	<![CDATA[
-	qiime quality-control evaluate-composition --i-expected-features=$iexpectedfeatures --i-observed-features=$iobservedfeatures
+	<command><![CDATA[
+qiime quality-control evaluate-composition
 
-	#if $input_files_mmetadatafile:
+--i-expected-features=$iexpectedfeatures
+--i-observed-features=$iobservedfeatures
 
-	#def list_dict_to_string(list_dict):
-		#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-		#for d in list_dict[1:]:
-			#set $file_list = $file_list + ' --m-metadata-file=' + d['additional_input'].__getattr__('file_name')
-		#end for
-		#return $file_list
-	#end def
+#if $input_files_mmetadatafile:
+#def list_dict_to_string(list_dict):
+	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
+	#for d in list_dict[1:]:
+		#set $file_list = $file_list + ' --m-metadata-file=' + d['additional_input'].__getattr__('file_name')
+	#end for
+	#return $file_list
+#end def
+ --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
+#end if
 
-	 --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
-	#end if
 
-	#if str($cmdconfig) != 'None':
-	 --cmd-config=$cmdconfig
-	#end if
+#if $pdepth:
+ --p-depth=$pdepth
+#end if
 
-	#if $pplotrvalue:
-	  --p-plot-r-value
-	#else
-		--p-no-plot-r-value
-	#end if
+#if str($ppalette) != 'None':
+ --p-palette=$ppalette
+#end if
 
-	#if str($mmetadatacolumn):
-	 --m-metadata-column="$mmetadatacolumn"
-	#end if
+#if $pplottar:
+ --p-plot-tar
+#end if
 
-	#if $pplotrsquared:
-	  --p-plot-r-squared
-	#else
-		--p-no-plot-r-squared
-	#end if
+#if $pplottdr:
+ --p-plot-tdr
+#end if
 
-	#if $pdepth:
-	 --p-depth=$pdepth
-	#end if
+#if $pplotrvalue:
+ --p-plot-r-value
+#end if
 
-	#if $pplottar:
-	  --p-plot-tar
-	#else
-		--p-no-plot-tar
-	#end if
+#if $pnoplotrsquared:
+ --p-no-plot-r-squared
+#end if
 
-	#if $pplotobservedfeaturesratio:
-	  --p-plot-observed-features-ratio
-	#else
-		--p-no-plot-observed-features-ratio
-	#end if
+#if $pplotbraycurtis:
+ --p-plot-bray-curtis
+#end if
 
-	#if str($ppalette) != 'None':
-	 --p-palette=$ppalette
-	#end if
+#if $pplotjaccard:
+ --p-plot-jaccard
+#end if
 
-	#if $pplottdr:
-	  --p-plot-tdr
-	#else
-		--p-no-plot-tdr
-	#end if
-	 --o-visualization=ovisualization
-	#if $pplotobservedfeatures:
-	  --p-plot-observed-features
-	#else
-		--p-no-plot-observed-features
-	#end if
-	;
-	qiime tools export ovisualization.qzv --output-dir out   && mkdir -p '$ovisualization.files_path'
-	&& cp -r out/* '$ovisualization.files_path'
-	&& mv '$ovisualization.files_path/index.html' '$ovisualization'
-	]]>
-	</command>
+#if $pplotobservedfeatures:
+ --p-plot-observed-features
+#end if
+
+#if $pplotobservedfeaturesratio:
+ --p-plot-observed-features-ratio
+#end if
+
+#if str($mmetadatacolumn):
+ --m-metadata-column="$mmetadatacolumn"
+#end if
+
+--o-visualization=ovisualization
+;
+qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir -p '$ovisualization.files_path'
+&& cp -r out/* '$ovisualization.files_path'
+&& mv '$ovisualization.files_path/index.html' '$ovisualization'
+	]]></command>
 	<inputs>
-		<param format="qza,no_unzip.zip" label="--i-expected-features: FeatureTable[RelativeFrequency] Expected feature compositions  [required]" name="iexpectedfeatures" optional="False" type="data"/>
-		<param format="qza,no_unzip.zip" label="--i-observed-features: FeatureTable[RelativeFrequency] Observed feature compositions  [required]" name="iobservedfeatures" optional="False" type="data"/>
-
-		<param label="--p-depth: Maximum depth of semicolon-delimited taxonomic ranks to test (e.g., 1 = root, 7 = species for the greengenes reference sequence database).  [default: 7]" name="pdepth" optional="True" type="integer" value="7"/>
-
-		<param label="--p-palette: Color palette to utilize for plotting.[default: Set1]" name="ppalette" optional="True" type="select">
+		<param format="qza,no_unzip.zip" label="--i-expected-features: ARTIFACT FeatureTable[RelativeFrequency] Expected feature compositions                [required]" name="iexpectedfeatures" optional="False" type="data"/>
+		<param format="qza,no_unzip.zip" label="--i-observed-features: ARTIFACT FeatureTable[RelativeFrequency] Observed feature compositions                [required]" name="iobservedfeatures" optional="False" type="data"/>
+		<param label="--p-depth: INTEGER    Maximum depth of semicolon-delimited taxonomic ranks to test (e.g., 1 = root, 7 = species for the greengenes reference sequence database).              [default: 7]" name="pdepth" optional="True" type="integer" value="7"/>
+		<param label="--p-palette: " name="ppalette" optional="True" type="select">
 			<option selected="True" value="None">Selection is Optional</option>
-			<option value="Accent">Accent</option>
-			<option value="tab20">tab20</option>
-			<option value="Pastel2">Pastel2</option>
-			<option value="plasma">plasma</option>
-			<option value="viridis">viridis</option>
-			<option value="rainbow">rainbow</option>
+			<option value="Set1">Set1</option>
+			<option value="Set2">Set2</option>
+			<option value="Set3">Set3</option>
 			<option value="Pastel1">Pastel1</option>
+			<option value="Pastel2">Pastel2</option>
+			<option value="Paired">Paired</option>
+			<option value="Accent">Accent</option>
+			<option value="Dark2">Dark2</option>
+			<option value="tab10">tab10</option>
+			<option value="tab20">tab20</option>
+			<option value="tab20b">tab20b</option>
+			<option value="tab20c">tab20c</option>
+			<option value="viridis">viridis</option>
+			<option value="plasma">plasma</option>
 			<option value="inferno">inferno</option>
 			<option value="magma">magma</option>
-			<option value="tab20b">tab20b</option>
-			<option value="Set3">Set3</option>
-			<option value="Set2">Set2</option>
-			<option value="Dark2">Dark2</option>
-			<option value="Set1">Set1</option>
-			<option value="tab10">tab10</option>
-			<option value="tab20c">tab20c</option>
 			<option value="terrain">terrain</option>
-			<option value="Paired">Paired</option>
+			<option value="rainbow">rainbow</option>
 		</param>
-
-
-		<param label="--p-plot-tar / --p-no-plot-tar  Plot taxon accuracy rate (TAR) on score
-                                  plot. TAR is the number of true positive
-                                  features divided by the total number of
-                                  observed features (TAR = true positives 
-                                  (true positives + false positives)).
-                                  [default: True]" name="pplottar" checked="True" type="boolean"/>
-		<param label="--p-plot-tdr / --p-no-plot-tdr  Plot taxon detection rate (TDR) on score
-                                  plot. TDR is the number of true positive
-                                  features divided by the total number of
-                                  expected features (TDR = true positives 
-                                  (true positives + false negatives)).
-                                  [default: True]" name="pplottdr" checked="True" type="boolean"/>
-		<param label="--p-plot-r-value / --p-no-plot-r-value
-                                  Plot expected vs. observed linear regression
-                                  r value on score plot.  [default: False]" name="pplotrvalue" checked="False" type="boolean"/>
-		<param label="--p-plot-r-squared / --p-no-plot-r-squared
-                                  Plot expected vs. observed linear regression
-                                  r-squared value on score plot.  [default:
-                                  True]" name="pplotrsquared" checked="True" type="boolean"/>
-
-		<param label="--p-plot-observed-features / --p-no-plot-observed-features
-                                  Plot observed features count on score plot.
-                                  [default: False]" name="pplotobservedfeatures" checked="False" type="boolean"/>
-		<param label="--p-plot-observed-features-ratio / --p-no-plot-observed-features-ratio
-                                  Plot ratio of observed:expected features on
-                                  score plot.  [default: True]" name="pplotobservedfeaturesratio" checked="True" type="boolean"/>
+		<param label="--p-plot-tar: --p-no-plot-tar Plot taxon accuracy rate (TAR) on score plot. TAR is the number of true positive features divided by the total number of observed features (TAR = true positives " name="pplottar" selected="False" type="boolean"/>
+		<param label="--p-plot-tdr: --p-no-plot-tdr Plot taxon detection rate (TDR) on score plot. TDR is the number of true positive features divided by the total number of expected features (TDR = true positives " name="pplottdr" selected="False" type="boolean"/>
+		<param label="--p-plot-r-value: --p-no-plot-r-value Plot expected vs. observed linear regression r value on score plot.                         [default: False]" name="pplotrvalue" selected="False" type="boolean"/>
+		<param label="--p-no-plot-r-squared: Do not plot expected vs. observed linear regression r-squared value on score plot.                    [default: False]" name="pnoplotrsquared" selected="False" type="boolean"/>
+		<param label="--p-plot-bray-curtis: --p-no-plot-bray-curtis Plot expected vs. observed Bray-Curtis dissimilarity scores on score plot.                  [default: False]" name="pplotbraycurtis" selected="False" type="boolean"/>
+		<param label="--p-plot-jaccard: --p-no-plot-jaccard Plot expected vs. observed Jaccard distances scores on score plot.                            [default: False]" name="pplotjaccard" selected="False" type="boolean"/>
+		<param label="--p-plot-observed-features: --p-no-plot-observed-features Plot observed features count on score plot. [default: False]" name="pplotobservedfeatures" selected="False" type="boolean"/>
+		<param label="--p-no-plot-observed-features-ratio: Do not plot ratio of observed:expected features on score plot.                                   [default: False]" name="pnoplotobservedfeaturesratio" selected="False" type="boolean"/>
+		<param label="--m-metadata-column: COLUMN  MetadataColumn[Categorical] Optional sample metadata that maps observed-features sample IDs to expected-features sample IDs.  [optional]" name="mmetadatacolumn" optional="True" type="text"/>
 
 		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
 			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
-		<param label="--m-metadata-column: MetadataColumn[Categorical] Column from metadata file or artifact viewable as metadata. Optional sample metadata that maps observed_features sample IDs to expected_features sample IDs. [optional]" name="mmetadatacolumn" optional="True" type="text"/>
 
-		<param label="--cmd-config: Use config file for command options" name="cmdconfig" optional="True" type="data"/>
 	</inputs>
 	<outputs>
 		<data format="html" label="${tool.name} on ${on_string}: visualization.qzv" name="ovisualization"/>
 	</outputs>
-	<help>
-		<![CDATA[
+	<help><![CDATA[
 Evaluate expected vs. observed taxonomic composition of samples
-----------------------------------------------------------------
+###############################################################
 
 This visualizer compares the feature composition of pairs of observed and
 expected samples containing the same sample ID in two separate feature
@@ -173,7 +143,7 @@ observed_features : FeatureTable[RelativeFrequency]
 depth : Int, optional
     Maximum depth of semicolon-delimited taxonomic ranks to test (e.g., 1 =
     root, 7 = species for the greengenes reference sequence database).
-palette : Str % Choices({'Accent', 'Dark2', 'Paired', 'Pastel1', 'Pastel2', 'Set1', 'Set2', 'Set3', 'inferno', 'magma', 'plasma', 'rainbow', 'tab10', 'tab20', 'tab20b', 'tab20c', 'terrain', 'viridis'}), optional
+palette : Str % Choices('Set1', 'Set2', 'Set3', 'Pastel1', 'Pastel2', 'Paired', 'Accent', 'Dark2', 'tab10', 'tab20', 'tab20b', 'tab20c', 'viridis', 'plasma', 'inferno', 'magma', 'terrain', 'rainbow'), optional
     Color palette to utilize for plotting.
 plot_tar : Bool, optional
     Plot taxon accuracy rate (TAR) on score plot. TAR is the number of true
@@ -188,6 +158,11 @@ plot_r_value : Bool, optional
 plot_r_squared : Bool, optional
     Plot expected vs. observed linear regression r-squared value on score
     plot.
+plot_bray_curtis : Bool, optional
+    Plot expected vs. observed Bray-Curtis dissimilarity scores on score
+    plot.
+plot_jaccard : Bool, optional
+    Plot expected vs. observed Jaccard distances scores on score plot.
 plot_observed_features : Bool, optional
     Plot observed features count on score plot.
 plot_observed_features_ratio : Bool, optional
@@ -199,11 +174,9 @@ metadata : MetadataColumn[Categorical], optional
 Returns
 -------
 visualization : Visualization
-		\
-		]]>
-	</help>
+	]]></help>
 <macros>
-	<import>qiime_citation.xml</import>
+    <import>qiime_citation.xml</import>
 </macros>
-<expand macro="qiime_citation" />
+<expand macro="qiime_citation"/>
 </tool>

@@ -1,41 +1,37 @@
 <?xml version="1.0" ?>
-<tool id="qiime_composition_ancom" name="qiime composition ancom" version="2018.4">
+<tool id="qiime_composition_ancom" name="qiime composition ancom" version="2019.4">
 	<description> - Apply ANCOM to identify features that differ in abundance.</description>
 	<requirements>
-		<requirement type="package" version="2018.4">qiime2</requirement>
+		<requirement type="package" version="2019.4">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
-  
-  qiime composition ancom --i-table=$itable
+qiime composition ancom
 
-  #def list_dict_to_string(list_dict):
-	  #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-	  #for d in list_dict[1:]:
-		  #set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
-	  #end for
-	  #return $file_list
-  #end def
- 
- --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile) --m-metadata-column="$mmetadatacolumn"
+--i-table=$itable
 
-  #if str($pdifferencefunction) != 'None':
-   --p-difference-function=$pdifferencefunction
-  #end if
+#def list_dict_to_string(list_dict):
+  #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
+  #for d in list_dict[1:]:
+	  #set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+  #end for
+  #return $file_list
+#end def
 
-  #if str($cmdconfig) != 'None':
-   --cmd-config=$cmdconfig
-  #end if
+--m-metadata-file=$list_dict_to_string($input_files_mmetadatafile) --m-metadata-column="$mmetadatacolumn"
 
-  #if str($ptransformfunction) != 'None':
-   --p-transform-function=$ptransformfunction
-  #end if
- 
-   --o-visualization=ovisualization;
-   
-  qiime tools export ovisualization.qzv --output-dir out   && mkdir -p '$ovisualization.files_path'
-  && cp -r out/* '$ovisualization.files_path'
-  && mv '$ovisualization.files_path/index.html' '$ovisualization';
-  
+#if str($pdifferencefunction) != 'None':
+--p-difference-function=$pdifferencefunction
+#end if
+
+#if str($ptransformfunction) != 'None':
+--p-transform-function=$ptransformfunction
+#end if
+
+--o-visualization=ovisualization;
+
+qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir -p '$ovisualization.files_path'
+&& cp -r out/* '$ovisualization.files_path'
+&& mv '$ovisualization.files_path/index.html' '$ovisualization'
   ]]></command>
 	<inputs>
 		<param format="qza,no_unzip.zip" label="--i-table: FeatureTable[Composition] - The feature table to be used for ANCOM computation.  [required]" name="itable" optional="False" type="data"/>
@@ -59,10 +55,9 @@
 	<outputs>
 		<data format="html" label="${tool.name} on ${on_string}: visualization.qzv" name="ovisualization"/>
 	</outputs>
-	<help>
-<![CDATA[
+	<help><![CDATA[
 Apply ANCOM to identify features that differ in abundance.
-----------------------------------------------------------
+##########################################################
 
 Apply Analysis of Composition of Microbiomes (ANCOM) to identify features
 that are differentially abundant across groups.
@@ -74,21 +69,19 @@ table : FeatureTable[Composition]
 metadata : MetadataColumn[Categorical]
     The categorical sample metadata column to test for differential
     abundance across.
-transform_function : Str % Choices({'clr', 'log', 'sqrt'}), optional
+transform_function : Str % Choices('sqrt', 'log', 'clr'), optional
     The method applied to transform feature values before generating
     volcano plots.
-difference_function : Str % Choices({'f_statistic', 'mean_difference'}), optional
+difference_function : Str % Choices('mean_difference', 'f_statistic'), optional
     The method applied to visualize fold difference in feature abundances
     across groups for volcano plots.
 
 Returns
 -------
 visualization : Visualization
- 
-]]>
-</help>
+	]]></help>
 <macros>
-	<import>qiime_citation.xml</import>
+    <import>qiime_citation.xml</import>
 </macros>
-<expand macro="qiime_citation" />
+<expand macro="qiime_citation"/>
 </tool>

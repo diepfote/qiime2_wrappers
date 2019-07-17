@@ -1,11 +1,11 @@
 <?xml version="1.0" ?>
-<tool id="qiime_tools_import" name="qiime tools import" version="2018.4">
+<tool id="qiime_tools_import" name="qiime tools import" version="2019.4">
 	<description> - Import data into a new QIIME 2 Artifact.</description>
 	<requirements>
-		<requirement type="package" version="2018.4">qiime2</requirement>
+		<requirement type="package" version="2019.4">qiime2</requirement>
 	</requirements>
-	<command><![CDATA[
-
+	<command>
+<![CDATA[
 mkdir input;
 
 #set $in_= 'input'
@@ -37,10 +37,10 @@ mkdir input;
 		#set $is_fastq_file = $is_fastq(str($f))
 
 		#if $is_fastq_file:
-			#set $file_for_processing = 'input/' + $f.name + '.gz'
+			#set $file_for_processing = "'input/" + $f.name + '.gz' + "'"
 			gzip -c ${f} > $file_for_processing;
 		#else
-			#set $file_for_processing = 'input/' + $f.name
+			#set $file_for_processing = "'input/" + $f.name + "'"
 			ln -s ${f}  $file_for_processing;
 		#end if
 	#end for
@@ -123,7 +123,7 @@ qiime tools import
 
 --input-path=$in_
 
---output-path=outputpath
+--output-path=outputpath.qza
 
 #if str($sourceformat) != 'None':
 	#if '__ob__' in str($sourceformat):
@@ -134,7 +134,9 @@ qiime tools import
  --source-format="$sourceformat"
 #end if
 ;
-cp outputpath.qza $outputpath]]></command>
+cp outputpath.qza $outputpath
+]]>
+	</command>
 	<inputs>
 		<conditional name="input_type">
 			<param name="type" type="select" label="Select a way to provide data, either using a file or a list" help="">

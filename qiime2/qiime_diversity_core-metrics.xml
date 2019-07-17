@@ -1,78 +1,81 @@
 <?xml version="1.0" ?>
-<tool id="qiime_diversity_core-metrics" name="qiime diversity core-metrics" version="2018.4">
+<tool id="qiime_diversity_core-metrics" name="qiime diversity core-metrics" version="2019.4">
 	<description> - Core diversity metrics (non-phylogenetic)</description>
 	<requirements>
-		<requirement type="package" version="2018.4">qiime2</requirement>
+		<requirement type="package" version="2019.4">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
-  qiime diversity core-metrics --i-table=$itable
-  
-  #def list_dict_to_string(list_dict):
-  	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-  	#for d in list_dict[1:]:
-  		#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
-  	#end for
-  	#return $file_list
-  #end def
-  
-   --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile) --p-sampling-depth="$psamplingdepth"
-   
-  #if str($cmdconfig) != 'None':
-   --cmd-config=$cmdconfig
-  #end if
-  
-   --o-jaccard-pcoa-results=ojaccardpcoaresults --o-jaccard-emperor=ojaccardemperor --o-shannon-vector=oshannonvector --o-bray-curtis-distance-matrix=obraycurtisdistancematrix --o-bray-curtis-emperor=obraycurtisemperor --o-rarefied-table=orarefiedtable --o-jaccard-distance-matrix=ojaccarddistancematrix
-   
-  #set $pnjobs = '${GALAXY_SLOTS:-4}'
-  
-  #if str($pnjobs):
-   --p-n-jobs="$pnjobs"
-  #end if
-  
-   --o-evenness-vector=oevennessvector --o-bray-curtis-pcoa-results=obraycurtispcoaresults --o-observed-otus-vector=oobservedotusvector;
-   
-  cp ojaccardpcoaresults.qza $ojaccardpcoaresults;
+qiime diversity core-metrics
 
-  qiime tools export ojaccardemperor.qzv --output-dir out   && mkdir -p '$ojaccardemperor.files_path'
-  && cp -r out/* '$ojaccardemperor.files_path'
-  && mv '$ojaccardemperor.files_path/index.html' '$ojaccardemperor';
-  
-  cp oshannonvector.qza $oshannonvector;
-  cp obraycurtisdistancematrix.qza $obraycurtisdistancematrix;  
-  
-  qiime tools export obraycurtisemperor.qzv --output-dir out   && mkdir -p '$obraycurtisemperor.files_path'
-  && cp -r out/* '$obraycurtisemperor.files_path'
-  && mv '$obraycurtisemperor.files_path/index.html' '$obraycurtisemperor';
-  
-  cp orarefiedtable.qza $orarefiedtable;
-  cp ojaccarddistancematrix.qza $ojaccarddistancematrix;
-  cp oevennessvector.qza $oevennessvector;
-  cp obraycurtispcoaresults.qza $obraycurtispcoaresults;
-  cp oobservedotusvector.qza $oobservedotusvector;
-  ]]></command>
+--i-table=$itable
+--p-sampling-depth="$psamplingdepth"
+
+#set $pnjobs = '${GALAXY_SLOTS:-4}'
+#if str($pnjobs):
+ --p-n-jobs="$pnjobs"
+#end if
+
+#def list_dict_to_string(list_dict):
+#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
+#for d in list_dict[1:]:
+	#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+#end for
+#return $file_list
+#end def
+
+--m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
+
+
+--o-rarefied-table=orarefiedtable
+--o-observed-otus-vector=oobservedotusvector
+--o-shannon-vector=oshannonvector
+--o-evenness-vector=oevennessvector
+--o-jaccard-distance-matrix=ojaccarddistancematrix
+--o-bray-curtis-distance-matrix=obraycurtisdistancematrix
+--o-jaccard-pcoa-results=ojaccardpcoaresults
+--o-bray-curtis-pcoa-results=obraycurtispcoaresults
+--o-jaccard-emperor=ojaccardemperor
+--o-bray-curtis-emperor=obraycurtisemperor
+;
+cp orarefiedtable.qza $orarefiedtable;
+cp oobservedotusvector.qza $oobservedotusvector;
+cp oshannonvector.qza $oshannonvector;
+cp oevennessvector.qza $oevennessvector;
+cp ojaccarddistancematrix.qza $ojaccarddistancematrix;
+cp obraycurtisdistancematrix.qza $obraycurtisdistancematrix;
+cp ojaccardpcoaresults.qza $ojaccardpcoaresults;
+cp obraycurtispcoaresults.qza $obraycurtispcoaresults;
+qiime tools export --input-path ojaccardemperor.qzv --output-path out   && mkdir -p '$ojaccardemperor.files_path'
+&& cp -r out/* '$ojaccardemperor.files_path'
+&& mv '$ojaccardemperor.files_path/index.html' '$ojaccardemperor';
+qiime tools export --input-path obraycurtisemperor.qzv --output-path out   && mkdir -p '$obraycurtisemperor.files_path'
+&& cp -r out/* '$obraycurtisemperor.files_path'
+&& mv '$obraycurtisemperor.files_path/index.html' '$obraycurtisemperor';
+	]]></command>
 	<inputs>
-		<param format="qza,no_unzip.zip" label="--i-table: FeatureTable[Frequency] The feature table containing the samples over which diversity metrics should be computed.  [required]" name="itable" optional="False" type="data"/>
-		<param label="--p-sampling-depth: The total frequency that each sample should be rarefied to prior to computing diversity metrics.  [required]" name="psamplingdepth" optional="False" type="text"/>
+		<param format="qza,no_unzip.zip" label="--i-table: ARTIFACT FeatureTable[Frequency] The feature table containing the samples over which diversity metrics should be computed.        [required]" name="itable" optional="False" type="data"/>
+		<param label="--p-sampling-depth: INTEGER Range(1, None)     The total frequency that each sample should be rarefied to prior to computing diversity metrics. [required]" name="psamplingdepth" optional="False" min="1" value="" type="integer"/>
+
 		<repeat name="input_files_mmetadatafile" optional="False" title="--m-metadata-file">
-			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. The sample metadata to use in the emperor plots. [required]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
+			<param label="--m-metadata-file: METADATA... (multiple arguments will be merged) The sample metadata to use in the emperor plots. [required]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
-		<param label="--cmd-config: Use config file for command options" name="cmdconfig" optional="True" type="data"/>
+
 	</inputs>
 	<outputs>
-		<data format="qza" label="${tool.name} on ${on_string}: rarefied-table.qza" name="orarefiedtable"/>
-		<data format="qza" label="${tool.name} on ${on_string}: observed-otus-vector.qza" name="oobservedotusvector"/>
-		<data format="qza" label="${tool.name} on ${on_string}: shannon-vector.qza" name="oshannonvector"/>
-		<data format="qza" label="${tool.name} on ${on_string}: evenness-vector.qza" name="oevennessvector"/>
-		<data format="qza" label="${tool.name} on ${on_string}: jaccard-distance-matrix.qza" name="ojaccarddistancematrix"/>
-		<data format="qza" label="${tool.name} on ${on_string}: bray-curtis-distance-matrix.qza" name="obraycurtisdistancematrix"/>
-		<data format="qza" label="${tool.name} on ${on_string}: jaccard-pcoa-results.qza" name="ojaccardpcoaresults"/>
-		<data format="qza" label="${tool.name} on ${on_string}: bray-curtis-pcoa-results.qza" name="obraycurtispcoaresults"/>
-		<data format="html" label="${tool.name} on ${on_string}: jaccard-emperor.qzv" name="ojaccardemperor"/>
-		<data format="html" label="${tool.name} on ${on_string}: bray-curtis-emperor.qzv" name="obraycurtisemperor"/>
+		<data format="qza" label="${tool.name} on ${on_string}: rarefiedtable.qza" name="orarefiedtable"/>
+		<data format="qza" label="${tool.name} on ${on_string}: observedotusvector.qza" name="oobservedotusvector"/>
+		<data format="qza" label="${tool.name} on ${on_string}: shannonvector.qza" name="oshannonvector"/>
+		<data format="qza" label="${tool.name} on ${on_string}: evennessvector.qza" name="oevennessvector"/>
+		<data format="qza" label="${tool.name} on ${on_string}: jaccarddistancematrix.qza" name="ojaccarddistancematrix"/>
+		<data format="qza" label="${tool.name} on ${on_string}: braycurtisdistancematrix.qza" name="obraycurtisdistancematrix"/>
+		<data format="qza" label="${tool.name} on ${on_string}: jaccardpcoaresults.qza" name="ojaccardpcoaresults"/>
+		<data format="qza" label="${tool.name} on ${on_string}: braycurtispcoaresults.qza" name="obraycurtispcoaresults"/>
+		<data format="html" label="${tool.name} on ${on_string}: jaccardemperor.qzv" name="ojaccardemperor"/>
+		<data format="html" label="${tool.name} on ${on_string}: braycurtisemperor.qzv" name="obraycurtisemperor"/>
 	</outputs>
 	<help><![CDATA[
 Core diversity metrics (non-phylogenetic)
------------------------------------------
+#########################################
 
 Applies a collection of diversity metrics (non-phylogenetic) to a feature
 table.
@@ -110,10 +113,9 @@ jaccard_emperor : Visualization
     Emperor plot of the PCoA matrix computed from Jaccard.
 bray_curtis_emperor : Visualization
     Emperor plot of the PCoA matrix computed from Bray-Curtis.
-    ]]>
-	</help>
+	]]></help>
 <macros>
-	<import>qiime_citation.xml</import>
+    <import>qiime_citation.xml</import>
 </macros>
-<expand macro="qiime_citation" />
+<expand macro="qiime_citation"/>
 </tool>

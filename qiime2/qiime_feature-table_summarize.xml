@@ -1,55 +1,48 @@
 <?xml version="1.0" ?>
-<tool id="qiime_feature-table_summarize" name="qiime feature-table summarize" version="2018.4">
+<tool id="qiime_feature-table_summarize" name="qiime feature-table summarize" version="2019.4">
 	<description> - Summarize table</description>
 	<requirements>
-		<requirement type="package" version="2018.4">qiime2</requirement>
+		<requirement type="package" version="2019.4">qiime2</requirement>
 	</requirements>
-	<command>
-	<![CDATA[
-	qiime feature-table summarize --i-table=$itable
+	<command><![CDATA[
+qiime feature-table summarize
 
-	#if $input_files_msamplemetadatafile:
+--i-table=$itable
 
-	#def list_dict_to_string(list_dict):
-		#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-		#for d in list_dict[1:]:
-			#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
-		#end for
-		#return $file_list
-	#end def
-	 --m-sample-metadata-file=$list_dict_to_string($input_files_msamplemetadatafile)
-	#end if
+#def list_dict_to_string(list_dict):
+#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
+#for d in list_dict[1:]:
+	#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+#end for
+#return $file_list
+#end def
+--m-sample-metadata-file=$list_dict_to_string($m_sample_metadatafile)
 
-	#if str($cmdconfig) != 'None':
-	 --cmd-config=$cmdconfig
-	#end if
-	 --o-visualization=ovisualization;
-
-	qiime tools export ovisualization.qzv --output-dir out   && mkdir -p '$ovisualization.files_path'
-	&& cp -r out/* '$ovisualization.files_path'
-	&& mv '$ovisualization.files_path/index.html' '$ovisualization'
-		]]>
-	</command>
+--o-visualization=ovisualization
+;
+qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir -p '$ovisualization.files_path'
+&& cp -r out/* '$ovisualization.files_path'
+&& mv '$ovisualization.files_path/index.html' '$ovisualization'
+	]]></command>
 	<inputs>
-		<param format="qza,no_unzip.zip" label="--i-table: FeatureTable[Frequency | PresenceAbsence | RelativeFrequency] The feature table to be summarized. [required]" name="itable" optional="False" type="data"/>
-		<repeat name="input_files_msamplemetadatafile" optional="True" title="--m-sample-metadata-file">
-			<param label="--m-sample-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. The sample metadata.  [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
+		<param format="qza,no_unzip.zip" label="--i-table: ARTIFACT FeatureTable[Frequency | RelativeFrequency | PresenceAbsence]   The feature table to be summarized.          [required]" name="itable" optional="False" type="data"/>
+
+		<repeat name="m_sample_metadatafile" optional="False" title="--m-metadata-file">
+			<param label="--m-sample-metadata-file: (multiple arguments will be merged)  The sample metadata. [required]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
-		<param label="--cmd-config: Use config file for command options" name="cmdconfig" optional="True" type="data"/>
 	</inputs>
 	<outputs>
 		<data format="html" label="${tool.name} on ${on_string}: visualization.qzv" name="ovisualization"/>
 	</outputs>
-	<help>
-		<![CDATA[
+	<help><![CDATA[
 Summarize table
-----------------
+###############
 
 Generate visual and tabular summaries of a feature table.
 
 Parameters
 ----------
-table : FeatureTable[Frequency | PresenceAbsence | RelativeFrequency]
+table : FeatureTable[Frequency | RelativeFrequency | PresenceAbsence]
     The feature table to be summarized.
 sample_metadata : Metadata, optional
     The sample metadata.
@@ -57,11 +50,9 @@ sample_metadata : Metadata, optional
 Returns
 -------
 visualization : Visualization
-		\
-		]]>
-	</help>
+	]]></help>
 <macros>
-	<import>qiime_citation.xml</import>
+    <import>qiime_citation.xml</import>
 </macros>
-<expand macro="qiime_citation" />
+<expand macro="qiime_citation"/>
 </tool>
