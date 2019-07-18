@@ -9,6 +9,8 @@ qiime feature-table summarize
 
 --i-table=$itable
 
+
+#if $m_sample_metadatafile:
 #def list_dict_to_string(list_dict):
 #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
 #for d in list_dict[1:]:
@@ -17,6 +19,8 @@ qiime feature-table summarize
 #return $file_list
 #end def
 --m-sample-metadata-file=$list_dict_to_string($m_sample_metadatafile)
+#end if
+
 
 --o-visualization=ovisualization
 ;

@@ -18,8 +18,13 @@ qiime emperor biplot
 #return $file_list
 #end def
 
+#if $m_sample_metadatafile:
 --m-sample-metadata-file=$list_dict_to_string($m_sample_metadatafile)
+#end if
+
+if $m_feature_metadatafile:
 --m-feature-metadata-file=$list_dict_to_string($m_feature_metadatafile)
+#end if
 
 
 #if $pignoremissingsamples:

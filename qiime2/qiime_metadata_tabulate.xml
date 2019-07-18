@@ -8,6 +8,7 @@
 qiime metadata tabulate
 
 
+#if $input_files_mmetadatafile:
 #def list_dict_to_string(list_dict):
 #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
 #for d in list_dict[1:]:
@@ -16,6 +17,7 @@ qiime metadata tabulate
 #return $file_list
 #end def
 --m-input-file=$list_dict_to_string($input_files_minputfile)
+#end if
 
 
 #if $ppagesize:

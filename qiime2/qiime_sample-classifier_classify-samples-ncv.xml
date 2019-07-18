@@ -10,6 +10,7 @@ qiime sample-classifier classify-samples-ncv
 --i-table=$itable
 --m-metadata-column="$mmetadatacolumn"
 
+
 #if $input_files_mmetadatafile:
 #def list_dict_to_string(list_dict):
 	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
@@ -20,6 +21,7 @@ qiime sample-classifier classify-samples-ncv
 #end def
  --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
 #end if
+
 
 #if $pcv:
  --p-cv=$pcv

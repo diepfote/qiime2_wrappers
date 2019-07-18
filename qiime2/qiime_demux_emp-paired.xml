@@ -11,6 +11,7 @@ qiime demux emp-paired
 --m-barcodes-column="$mbarcodescolumn"
 
 
+#if $input_files_mbarcodesfile:
 #def list_dict_to_string(list_dict):
 #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
 #for d in list_dict[1:]:
@@ -18,8 +19,8 @@ qiime demux emp-paired
 #end for
 #return $file_list
 #end def
-
 --m-barcodes-file=$list_dict_to_string($input_files_mbarcodesfile)
+#end if
 
 
 #if $pnogolayerrorcorrection:

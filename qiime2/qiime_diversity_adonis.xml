@@ -10,6 +10,7 @@ qiime diversity adonis
 --i-distance-matrix=$idistancematrix
 
 
+#if $input_files_mmetadatafile:
 #def list_dict_to_string(list_dict):
   #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
   #for d in list_dict[1:]:
@@ -17,10 +18,8 @@ qiime diversity adonis
   #end for
   #return $file_list
 #end def
-
 --m-metadata-file=$list_dict_to_string("$input_files_mmetadatafile")
-
-
+#end if
 
 
 --p-formula="$pformula"

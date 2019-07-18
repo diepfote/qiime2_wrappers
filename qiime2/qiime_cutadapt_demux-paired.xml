@@ -8,6 +8,7 @@
 qiime cutadapt demux-paired
 --i-seqs=$iseqs
 
+
 #def list_dict_to_string(list_dict):
   #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
   #for d in list_dict[1:]:
@@ -16,8 +17,13 @@ qiime cutadapt demux-paired
   #return $file_list
 #end def
 
+#if $input_files_mforwardbarcodesfile:
 --m-forward-barcodes-file=$list_dict_to_string("$input_files_mforwardbarcodesfile")
+#end if
+
+#if $input_files_mreversebarcodesfile:
 --m-reverse-barcodes-file=$list_dict_to_string("$input_files_mreversebarcodesfile")
+#end if
 
 --m-forward-barcodes-column="$mforwardbarcodescolumn"
 
