@@ -37,7 +37,7 @@ qiime feature-table filter-features
 #if str($pmaxsamples):
  --p-max-samples="$pmaxsamples"
 #end if
- --m-metadata-file=mmetadatafile
+
 #if '__sq__' in str($pwhere):
   #set $pwhere_temp = $pwhere.replace('__sq__', "'")
   #set $pwhere = $pwhere_temp

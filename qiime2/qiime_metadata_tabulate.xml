@@ -8,7 +8,7 @@
 qiime metadata tabulate
 
 
-#if $input_files_mmetadatafile:
+#if $input_files_minputfile:
 #def list_dict_to_string(list_dict):
 #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
 #for d in list_dict[1:]:
