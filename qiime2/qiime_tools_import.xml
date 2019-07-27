@@ -44,7 +44,7 @@ mkdir input;
 			ln -s ${f}  $file_for_processing;
 		#end if
 	#end for
-	#if 'SingleEndFastqManifestPhred' in str($sourceformat):
+	#if 'SingleEndFastqManifestPhred' in str($inputformat):
 			#set $cwd = str($outputpath.extra_files_path) + "_manifest_file.txt"
 			#set $m_file = open(str($cwd), 'w')
 			$m_file.write("sample-id,absolute-filepath,direction\n")
@@ -85,9 +85,9 @@ mkdir input;
 
 	
 	$m_file.close()
-	#if 'PairedEndFastqManifestPhred' in str($sourceformat):
+	#if 'PairedEndFastqManifestPhred' in str($inputformat):
 		#set $in_= str($cwd)
-	#elif  'Casava' in str($sourceformat):
+	#elif  'Casava' in str($inputformat):
 		#set $in_= 'input'
 	#end if
 
@@ -119,20 +119,21 @@ mkdir input;
 
 qiime tools import
 
---type="$semantic_type"
-
 --input-path=$in_
+
+#if str($inputformat) != 'None':
+	#if '__ob__' in str($inputformat):
+  		#set $inputformat_temp = str($inputformat).replace('__ob__', '[')
+		#set $inputformat_temp = str($inputformat_temp).replace('__cb__', ']')
+  		#set $inputformat = $inputformat_temp
+	#end if
+ --input-format="$inputformat"
+#end if
+
+--type="$semantic_type"
 
 --output-path=outputpath.qza
 
-#if str($sourceformat) != 'None':
-	#if '__ob__' in str($sourceformat):
-  		#set $sourceformat_temp = str($sourceformat).replace('__ob__', '[')
-		#set $sourceformat_temp = str($sourceformat_temp).replace('__cb__', ']')
-  		#set $sourceformat = $sourceformat_temp
-	#end if
- --source-format="$sourceformat"
-#end if
 ;
 cp outputpath.qza $outputpath
 ]]>
@@ -161,13 +162,16 @@ cp outputpath.qza $outputpath
 			<option value="DistanceMatrix">DistanceMatrix</option>
 			<option value="EMPPairedEndSequences">EMPPairedEndSequences</option>
 			<option value="EMPSingleEndSequences">EMPSingleEndSequences</option>
+			<option value="ErrorCorrectionDetails">ErrorCorrectionDetails</option>
 			<option value="FeatureData[AlignedSequence]">FeatureData[AlignedSequence]</option>
+			<option value="FeatureData[Importance]">FeatureData[Importance]</option>
 			<option value="FeatureData[PairedEndSequence]">FeatureData[PairedEndSequence]</option>
 			<option value="FeatureData[Sequence]">FeatureData[Sequence]</option>
 			<option value="FeatureData[Taxonomy]">FeatureData[Taxonomy]</option>
 			<option value="FeatureTable[Balance]">FeatureTable[Balance]</option>
 			<option value="FeatureTable[Composition]">FeatureTable[Composition]</option>
 			<option value="FeatureTable[Frequency]">FeatureTable[Frequency]</option>
+			<option value="FeatureTable[PercentileNormalized]">FeatureTable[PercentileNormalized]</option>
 			<option value="FeatureTable[PresenceAbsence]">FeatureTable[PresenceAbsence]</option>
 			<option value="FeatureTable[RelativeFrequency]">FeatureTable[RelativeFrequency]</option>
 			<option value="Hierarchy">Hierarchy</option>
@@ -176,21 +180,26 @@ cp outputpath.qza $outputpath
 			<option value="PCoAResults">PCoAResults</option>
 			<option value="Phylogeny[Rooted]">Phylogeny[Rooted]</option>
 			<option value="Phylogeny[Unrooted]">Phylogeny[Unrooted]</option>
+			<option value="Placements">Placements</option>
 			<option value="QualityFilterStats">QualityFilterStats</option>
 			<option value="RawSequences">RawSequences</option>
 			<option value="SampleData[AlphaDiversity]">SampleData[AlphaDiversity]</option>
 			<option value="SampleData[BooleanSeries]">SampleData[BooleanSeries]</option>
+			<option value="SampleData[ClassifierPredictions]">SampleData[ClassifierPredictions]</option>
 			<option value="SampleData[DADA2Stats]">SampleData[DADA2Stats]</option>
 			<option value="SampleData[FirstDifferences]">SampleData[FirstDifferences]</option>
 			<option value="SampleData[JoinedSequencesWithQuality]">SampleData[JoinedSequencesWithQuality]</option>
 			<option selected="True" value="SampleData[PairedEndSequencesWithQuality]">SampleData[PairedEndSequencesWithQuality]</option>
+			<option value="SampleData[RegressorPredictions]">SampleData[RegressorPredictions]</option>
 			<option value="SampleData[SequencesWithQuality]">SampleData[SequencesWithQuality]</option>
 			<option value="SampleData[Sequences]">SampleData[Sequences]</option>
+			<option value="SampleData[Classifier]">SampleData[Classifier]</option>
+			<option value="SampleData[Regressor]">SampleData[Regressor]</option>
 			<option value="TaxonomicClassifier">TaxonomicClassifier</option>
 			<option value="UchimeStats">UchimeStats</option>
 		</param>
 
-		<param label="--source-format: The format of the data to be imported. If not provided, data must be in the format expected by the semantic type provided via --type." name="sourceformat" optional="True" type="select">
+		<param label="--input-format: The format of the data to be imported. If not provided, data must be in the format expected by the semantic type provided via --type." name="inputformat" optional="True" type="select">
 			<option value="AlignedDNAFASTAFormat">AlignedDNAFASTAFormat</option>
 			<option value="AlignedDNASequencesDirectoryFormat">AlignedDNASequencesDirectoryFormat</option>
 			<option value="AlphaDiversityDirectoryFormat">AlphaDiversityDirectoryFormat</option>
@@ -214,11 +223,14 @@ cp outputpath.qza $outputpath
 			<option value="EMPPairedEndDirFmt">EMPPairedEndDirFmt</option>
 			<option value="EMPSingleEndCasavaDirFmt">EMPSingleEndCasavaDirFmt</option>
 			<option value="EMPSingleEndDirFmt">EMPSingleEndDirFmt</option>
+			<option value="ErrorCorrectionDetailsDirFmt">ErrorCorrectionDetailsDirFmt</option>
 			<option value="FastqGzFormat">FastqGzFormat</option>
 			<option value="FirstDifferencesDirectoryFormat">FirstDifferencesDirectoryFormat</option>
 			<option value="FirstDifferencesFormat">FirstDifferencesFormat</option>
 			<option value="HeaderlessTSVTaxonomyDirectoryFormat">HeaderlessTSVTaxonomyDirectoryFormat</option>
 			<option value="HeaderlessTSVTaxonomyFormat">HeaderlessTSVTaxonomyFormat</option>
+			<option value="ImportanceDirectoryFormat">ImportanceDirectoryFormat</option>
+			<option value="ImportanceFormat">ImportanceFormat</option>
 			<option value="LSMatFormat">LSMatFormat</option>
 			<option value="MultiplexedPairedEndBarcodeInSequenceDirFmt">MultiplexedPairedEndBarcodeInSequenceDirFmt</option>
 			<option value="MultiplexedSingleEndBarcodeInSequenceDirFmt">MultiplexedSingleEndBarcodeInSequenceDirFmt</option>
@@ -227,14 +239,23 @@ cp outputpath.qza $outputpath
 			<option value="OrdinationDirectoryFormat">OrdinationDirectoryFormat</option>
 			<option value="OrdinationFormat">OrdinationFormat</option>
 			<option value="PairedDNASequencesDirectoryFormat">PairedDNASequencesDirectoryFormat</option>
-			<option selected="True" value="PairedEndFastqManifestPhred33">PairedEndFastqManifestPhred33</option>
+			<option value="PairedEndFastqManifestPhred33">PairedEndFastqManifestPhred33</option>
+			<option value="PairedEndFastqManifestPhred33V2">PairedEndFastqManifestPhred33V2</option>
 			<option value="PairedEndFastqManifestPhred64">PairedEndFastqManifestPhred64</option>
+			<option value="PairedEndFastqManifestPhred64V2">PairedEndFastqManifestPhred64V2</option>
+			<option value="PlacementsDirFmt">PlacementsDirFmt</option>
+			<option value="PlacementsFormat">PlacementsFormat</option>
+			<option value="PredictionsDirectoryFormat">PredictionsDirectoryFormat</option>
+			<option value="PredictionsFormat">PredictionsFormat</option>
 			<option value="QIIME1DemuxDirFmt">QIIME1DemuxDirFmt</option>
 			<option value="QIIME1DemuxFormat">QIIME1DemuxFormat</option>
 			<option value="QualityFilterStatsDirFmt">QualityFilterStatsDirFmt</option>
 			<option value="QualityFilterStatsFmt">QualityFilterStatsFmt</option>
+			<option value="SampleEstimatorDirFmt">SampleEstimatorDirFmt</option>
 			<option value="SingleEndFastqManifestPhred33">SingleEndFastqManifestPhred33</option>
+			<option value="SingleEndFastqManifestPhred33V2">SingleEndFastqManifestPhred33V2</option>
 			<option value="SingleEndFastqManifestPhred64">SingleEndFastqManifestPhred64</option>
+			<option value="SingleEndFastqManifestPhred64V2">SingleEndFastqManifestPhred64V2</option>
 			<option value="SingleLanePerSamplePairedEndFastqDirFmt">SingleLanePerSamplePairedEndFastqDirFmt</option>
 			<option value="SingleLanePerSampleSingleEndFastqDirFmt">SingleLanePerSampleSingleEndFastqDirFmt</option>
 			<option value="TSVTaxonomyDirectoryFormat">TSVTaxonomyDirectoryFormat</option>
