@@ -4,7 +4,7 @@
 	<requirements>
 		<requirement type="package" version="2019.4">qiime2</requirement>
 	</requirements>
-	<command><![CDATA[qiime tools export --input-path $isequences --output-dir test
+	<command><![CDATA[qiime tools export --input-path $isequences --output-path test
 	]]></command>
 	<inputs>
 	<param format="qza,no_unzip.zip" label="Input artifact to export! [required]" name="isequences" optional="False" type="data"/></inputs>
