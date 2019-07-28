@@ -9,31 +9,68 @@ qiime cutadapt demux-paired
 --i-seqs=$iseqs
 
 
-#def list_dict_to_string(list_dict):
-  #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-  #for d in list_dict[1:]:
-	  #set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
-  #end for
-  #return $file_list
-#end def
-
 #if $input_files_mforwardbarcodesfile:
---m-forward-barcodes-file=$list_dict_to_string("$input_files_mforwardbarcodesfile")
+#def list_dict_to_string_forward(list_dict):
+	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
+	#for d in list_dict[1:]:
+		#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+	#end for
+	#return $file_list
+#end def
+--m-forward-barcodes-file=$list_dict_to_string_forward($input_files_mforwardbarcodesfile)
 #end if
 
 #if $input_files_mreversebarcodesfile:
---m-reverse-barcodes-file=$list_dict_to_string("$input_files_mreversebarcodesfile")
+#def list_dict_to_string_reverse(list_dict):
+	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
+	#for d in list_dict[1:]:
+		#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+	#end for
+	#return $file_list
+#end def
+--m-reverse-barcodes-file=$list_dict_to_string_reverse($input_files_mreversebarcodesfile)
 #end if
 
+
+
+
+#if '__sq__' in str($mforwardbarcodescolumn):
+  #set $mforwardbarcodescolumn_temp = $mforwardbarcodescolumn.replace('__sq__', "'")
+  #set $mforwardbarcodescolumn = $mforwardbarcodescolumn_temp
+#end if
+
+#if '__db__' in str($mforwardbarcodescolumn):
+  #set $mforwardbarcodescolumn_temp = $mforwardbarcodescolumn.replace('__db__', '"')
+  #set $mforwardbarcodescolumn = $mforwardbarcodescolumn_temp
+#end if
+
+#if str($mforwardbarcodescolumn):
 --m-forward-barcodes-column="$mforwardbarcodescolumn"
+#end if
+
+
+
+
+#if '__sq__' in str($mreversebarcodescolumn):
+  #set $mreversebarcodescolumn_temp = $mreversebarcodescolumn.replace('__sq__', "'")
+  #set $mreversebarcodescolumn = $mreversebarcodescolumn_temp
+#end if
+
+#if '__db__' in str($mreversebarcodescolumn):
+  #set $mreversebarcodescolumn_temp = $mreversebarcodescolumn.replace('__db__', '"')
+  #set $mreversebarcodescolumn = $mreversebarcodescolumn_temp
+#end if
 
 #if str($mreversebarcodescolumn):
  --m-reverse-barcodes-column="$mreversebarcodescolumn"
 #end if
 
+
+
 #if $perrorrate:
  --p-error-rate=$perrorrate
 #end if
+
 
 
 --o-per-sample-sequences=opersamplesequences

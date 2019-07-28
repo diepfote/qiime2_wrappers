@@ -18,7 +18,7 @@ qiime diversity adonis
   #end for
   #return $file_list
 #end def
---m-metadata-file=$list_dict_to_string("$input_files_mmetadatafile")
+--m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
 #end if
 
 
