@@ -148,24 +148,24 @@ cp oclassifier.qza $oclassifier
 
 		<param label="--p-classify--alpha: NUMBER [default: 0.001]" name="pclassifyalpha" optional="True" type="float" value="0.001"/>
 		<param label="--p-classify--chunk-size: INTEGER [default: 20000]" name="pclassifychunksize" optional="True" type="integer" value="20000"/>
-		<param label="--p-classify--class-prior: TEXT [default: 'null']" name="pclassifyclassprior" optional="True" type="text" value="'null'"/>
+		<param label="--p-classify--class-prior: TEXT [default: 'null']" name="pclassifyclassprior" optional="True" type="text" value="null"/>
 		<param label="--p-classify--fit-prior: --p-no-classify--fit-prior [default: False]" name="pclassifyfitprior" selected="False" type="boolean"/>
 		<param label="--p-feat-ext--alternate-sign: --p-no-feat-ext--alternate-sign [default: False]" name="pfeatextalternatesign" selected="False" type="boolean"/>
-		<param label="--p-feat-ext--analyzer: TEXT [default: 'char_wb']" name="pfeatextanalyzer" optional="True" type="text" value="'char_wb'"/>
+		<param label="--p-feat-ext--analyzer: TEXT [default: 'char_wb']" name="pfeatextanalyzer" optional="True" type="text" value="char_wb"/>
 		<param label="--p-feat-ext--binary: --p-no-feat-ext--binary [default: False]" name="pfeatextbinary" selected="False" type="boolean"/>
-		<param label="--p-feat-ext--decode-error: TEXT [default: 'strict']" name="pfeatextdecodeerror" optional="True" type="text" value="'strict'"/>
-		<param label="--p-feat-ext--encoding: TEXT [default: 'utf-8']" name="pfeatextencoding" optional="True" type="text" value="'utf-8'"/>
-		<param label="--p-feat-ext--input: TEXT [default: 'content']" name="pfeatextinput" optional="True" type="text" value="'content'"/>
+		<param label="--p-feat-ext--decode-error: TEXT [default: 'strict']" name="pfeatextdecodeerror" optional="True" type="text" value="strict"/>
+		<param label="--p-feat-ext--encoding: TEXT [default: 'utf-8']" name="pfeatextencoding" optional="True" type="text" value="utf-8"/>
+		<param label="--p-feat-ext--input: TEXT [default: 'content']" name="pfeatextinput" optional="True" type="text" value="content"/>
 		<param label="--p-no-feat-ext--lowercase:  [default: False]" name="pnofeatextlowercase" selected="False" type="boolean"/>
 		<param label="--p-feat-ext--n-features: INTEGER [default: 8192]" name="pfeatextnfeatures" optional="True" type="integer" value="8192"/>
-		<param label="--p-feat-ext--ngram-range: TEXT [default: '[7, 7]']" name="pfeatextngramrange" optional="True" type="text" value="'[7, 7]"/>
+		<param label="--p-feat-ext--ngram-range: TEXT [default: '[7, 7]']" name="pfeatextngramrange" optional="True" type="text" value="[7, 7]"/>
 		<param label="--p-feat-ext--non-negative: --p-no-feat-ext--non-negative [default: False]" name="pfeatextnonnegative" selected="False" type="boolean"/>
-		<param label="--p-feat-ext--norm: TEXT [default: 'l2']" name="pfeatextnorm" optional="True" type="text" value="'l2'"/>
-		<param label="--p-feat-ext--preprocessor: TEXT [default: 'null']" name="pfeatextpreprocessor" optional="True" type="text" value="'null'"/>
-		<param label="--p-feat-ext--stop-words: TEXT [default: 'null']" name="pfeatextstopwords" optional="True" type="text" value="'null'"/>
-		<param label="--p-feat-ext--strip-accents: TEXT [default: 'null']" name="pfeatextstripaccents" optional="True" type="text" value="'null'"/>
-		<param label="--p-feat-ext--token-pattern: TEXT [default: '(?u)\\b\\w\\w+\\b']" name="pfeatexttokenpattern" optional="True" type="text" value="'(?u)\\b\\w\\w+\\b'"/>
-		<param label="--p-feat-ext--tokenizer: TEXT [default: 'null']" name="pfeatexttokenizer" optional="True" type="text" value="'null'"/>
+		<param label="--p-feat-ext--norm: TEXT [default: 'l2']" name="pfeatextnorm" optional="True" type="text" value="l2"/>
+		<param label="--p-feat-ext--preprocessor: TEXT [default: 'null']" name="pfeatextpreprocessor" optional="True" type="text" value="null"/>
+		<param label="--p-feat-ext--stop-words: TEXT [default: 'null']" name="pfeatextstopwords" optional="True" type="text" value="null"/>
+		<param label="--p-feat-ext--strip-accents: TEXT [default: 'null']" name="pfeatextstripaccents" optional="True" type="text" value="null"/>
+		<param label="--p-feat-ext--token-pattern: TEXT [default: '(?u)\\b\\w\\w+\\b']" name="pfeatexttokenpattern" optional="True" type="text" value="(?u)\\b\\w\\w+\\b"/>
+		<param label="--p-feat-ext--tokenizer: TEXT [default: 'null']" name="pfeatexttokenizer" optional="True" type="text" value="null"/>
 	</inputs>
 	<outputs>
 		<data format="qza" label="${tool.name} on ${on_string}: classifier.qza" name="oclassifier"/>

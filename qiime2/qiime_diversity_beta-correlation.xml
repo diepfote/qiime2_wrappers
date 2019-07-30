@@ -59,9 +59,9 @@ qiime tools export --input-path omantelscattervisualization.qzv --output-path ou
 		</param>
 		<param label="--p-permutations: INTEGER Range(0, None)     The number of permutations to be run when computing p-values. Supplying a value of zero will disable permutation testing and p-values will not be calculated (this results in *much* quicker execution time if p-values are not desired).               [default: 999]" name="ppermutations" optional="True" type="integer" min="0" value="999"/>
 		<param label="--p-intersect-ids: --p-no-intersect-ids If supplied, IDs that are not found in both distance matrices will be discarded before applying the Mantel test. Default behavior is to error on any mismatched IDs.                                   [default: False]" name="pintersectids" selected="False" type="boolean"/>
-		<param label="--p-label1: TEXT      Label for `distance-matrix` in the output visualization.                    [default: 'Metadata']" name="plabel1" optional="True" type="text" value="'Metadata'"/>
-		<param label="--p-label2: TEXT      Label for `metadata-distance-matrix` in the output visualization.             [default: 'Distance Matrix']" name="plabel2" optional="True" type="text" value="'Distance Matrix'"/>
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
+		<param label="--p-label1: TEXT      Label for `distance-matrix` in the output visualization.                    [default: 'Metadata']" name="plabel1" optional="True" type="text" value="Metadata"/>
+		<param label="--p-label2: TEXT      Label for `metadata-distance-matrix` in the output visualization.             [default: 'Distance Matrix']" name="plabel2" optional="True" type="text" value="Distance Matrix"/>
+		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file  [required]">
 			<param label="--m-metadata-file" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 	</inputs>
