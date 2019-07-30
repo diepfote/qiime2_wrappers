@@ -141,6 +141,7 @@ representative_sequences : FeatureData[Sequence]
     The resulting feature sequences. Each feature in the feature table will
     be represented by exactly one sequence.
 denoising_stats : SampleData[DADA2Stats]
+	\
 	]]></help>
 <macros>
     <import>qiime_citation.xml</import>

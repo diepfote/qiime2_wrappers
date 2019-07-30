@@ -13,7 +13,7 @@ qiime vsearch join-pairs
  --p-truncqual="$ptruncqual"
 #end if
 
-#if $pminlen:
+#if str($pminlen):
  --p-minlen=$pminlen
 #end if
 
@@ -25,11 +25,11 @@ qiime vsearch join-pairs
  --p-allowmergestagger
 #end if
 
-#if $pminovlen:
+#if str($pminovlen):
  --p-minovlen=$pminovlen
 #end if
 
-#if $pmaxdiffs:
+#if str($pmaxdiffs):
  --p-maxdiffs=$pmaxdiffs
 #end if
 
@@ -45,19 +45,19 @@ qiime vsearch join-pairs
  --p-maxee="$pmaxee"
 #end if
 
-#if $pqmin:
+#if str($pqmin):
  --p-qmin=$pqmin
 #end if
 
-#if $pqminout:
+#if str($pqminout):
  --p-qminout=$pqminout
 #end if
 
-#if $pqmax:
+#if str($pqmax):
  --p-qmax=$pqmax
 #end if
 
-#if $pqmaxout:
+#if str($pqmaxout):
  --p-qmaxout=$pqmaxout
 #end if
 

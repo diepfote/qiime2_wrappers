@@ -23,16 +23,12 @@ qiime fragment-insertion sepp
 #end if
 
 
-#if $palignmentsubsetsize:
+#if str($palignmentsubsetsize):
  --p-alignment-subset-size=$palignmentsubsetsize
 #end if
 
 #if str($pplacementsubsetsize):
  --p-placement-subset-size="$pplacementsubsetsize"
-#end if
-
-#if $pdebug:
- --p-debug
 #end if
 
 --o-tree=otree
@@ -47,7 +43,6 @@ cp oplacements.qza $oplacements
 		<param format="qza,no_unzip.zip" label="--i-reference-phylogeny: ARTIFACT Phylogeny[Rooted]  The rooted reference phylogeny. Must be in sync with reference-alignment, i.e. each tip name must have exactly one corresponding record.            [optional]" name="ireferencephylogeny" optional="True" type="data"/>
 		<param label="--p-alignment-subset-size: INTEGER Each placement subset is further broken into subsets of at most these many sequences and a separate HMM is trained on each subset. The default alignment subset size is set to balance the exhaustiveness of the alignment step with the running time.   [default: 1000]" name="palignmentsubsetsize" optional="True" type="integer" value="1000"/>
 		<param label="--p-placement-subset-size: INTEGER The tree is divided into subsets such that each subset includes at most these many subsets. The placement step places the fragment on only one subset, determined based on alignment scores. The default placement subset is set to make sure the memory requirement of the pplacer step does not become prohibitively large." name="pplacementsubsetsize" optional="True" type="integer"/>
-		<param label="--p-debug: --p-no-debug Print additional run information to STDOUT for debugging. Run together with --verbose to actually see the information on STDOUT. Temporary directories will not be removed if run fails.           [default: False]" name="pdebug" selected="False" type="boolean"/>
 	</inputs>
 	<outputs>
 		<data format="qza" label="${tool.name} on ${on_string}: tree.qza" name="otree"/>

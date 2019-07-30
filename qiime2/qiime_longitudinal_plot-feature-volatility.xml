@@ -11,9 +11,19 @@ qiime longitudinal plot-feature-volatility
 --i-importances=$iimportances
 --p-state-column="$pstatecolumn"
 
+
+
+#if '__sq__' in str($pindividualidcolumn):
+  #set $pindividualidcolumn_temp = $pindividualidcolumn.replace('__sq__', "'")
+  #set $pindividualidcolumn = $pindividualidcolumn_temp
+#end if
+
 #if str($pindividualidcolumn):
  --p-individual-id-column="$pindividualidcolumn"
 #end if
+
+
+
 
 #if str($pdefaultgroupcolumn):
  --p-default-group-column="$pdefaultgroupcolumn"
@@ -56,7 +66,7 @@ qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir 
 			<option value="log">log</option>
 		</param>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
+		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file  [required]">
 			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 

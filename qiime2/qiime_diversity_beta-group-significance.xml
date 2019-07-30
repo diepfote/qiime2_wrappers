@@ -55,7 +55,7 @@ qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir 
 		<param label="--p-pairwise: --p-no-pairwise Perform pairwise tests between all pairs of groups in addition to the test across all groups. This can be very slow if there are a lot of groups in the metadata column.                                [default: False]" name="ppairwise" selected="False" type="boolean"/>
 		<param label="--p-permutations: INTEGER The number of permutations to be run when computing p-values.                                [default: 999]" name="ppermutations" optional="True" type="integer" value="999"/>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
+		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file [required]">
 			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 	</inputs>

@@ -16,11 +16,11 @@ qiime phylogeny align-to-tree-mafft-fasttree
 #end if
 
 
-#if $pmaskmaxgapfrequency:
+#if str($pmaskmaxgapfrequency):
  --p-mask-max-gap-frequency=$pmaskmaxgapfrequency
 #end if
 
-#if $pmaskminconservation:
+#if str($pmaskminconservation):
  --p-mask-min-conservation=$pmaskminconservation
 #end if
 

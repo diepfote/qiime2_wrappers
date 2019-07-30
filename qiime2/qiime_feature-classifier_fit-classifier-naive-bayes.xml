@@ -31,9 +31,20 @@ qiime feature-classifier fit-classifier-naive-bayes
  --p-classify--chunk-size=$pclassifychunksize
 #end if
 
+
+
+
+#if '__sq__' in str($pclassifyclassprior):
+  #set $pclassifyclassprior_temp = $pclassifyclassprior.replace('__sq__', "'")
+  #set $pclassifyclassprior = $pclassifyclassprior_temp
+#end if
+
 #if str($pclassifyclassprior):
  --p-classify--class-prior="$pclassifyclassprior"
 #end if
+
+
+
 
 #if $pclassifyfitprior:
  --p-classify--fit-prior
@@ -43,25 +54,66 @@ qiime feature-classifier fit-classifier-naive-bayes
  --p-feat-ext--alternate-sign
 #end if
 
+
+
+
+
+#if '__sq__' in str($pfeatextanalyzer):
+  #set $pfeatextanalyzer_temp = $pfeatextanalyzer.replace('__sq__', "'")
+  #set $pfeatextanalyzer = $pfeatextanalyzer_temp
+#end if
+
 #if str($pfeatextanalyzer):
  --p-feat-ext--analyzer="$pfeatextanalyzer"
 #end if
 
+
+
+
+
 #if $pfeatextbinary:
  --p-feat-ext--binary
+#end if
+
+
+
+#if '__sq__' in str($pfeatextdecodeerror):
+  #set $pfeatextdecodeerror_temp = $pfeatextdecodeerror.replace('__sq__', "'")
+  #set $pfeatextdecodeerror = $pfeatextdecodeerror_temp
 #end if
 
 #if str($pfeatextdecodeerror):
  --p-feat-ext--decode-error="$pfeatextdecodeerror"
 #end if
 
+
+
+
+
+#if '__sq__' in str($pfeatextencoding):
+  #set $pfeatextencoding_temp = $pfeatextencoding.replace('__sq__', "'")
+  #set $pfeatextencoding = $pfeatextencoding_temp
+#end if
+
 #if str($pfeatextencoding):
  --p-feat-ext--encoding="$pfeatextencoding"
+#end if
+
+
+
+
+
+#if '__sq__' in str($pfeatextinput):
+  #set $pfeatextinput_temp = $pfeatextinput.replace('__sq__', "'")
+  #set $pfeatextinput = $pfeatextinput_temp
 #end if
 
 #if str($pfeatextinput):
  --p-feat-ext--input="$pfeatextinput"
 #end if
+
+
+
 
 #if $pnofeatextlowercase:
  --p-no-feat-ext--lowercase
@@ -69,6 +121,14 @@ qiime feature-classifier fit-classifier-naive-bayes
 
 #if $pfeatextnfeatures:
  --p-feat-ext--n-features=$pfeatextnfeatures
+#end if
+
+
+
+
+#if '__sq__' in str($pfeatextngramrange):
+  #set $pfeatextngramrange_temp = $pfeatextngramrange.replace('__sq__', "'")
+  #set $pfeatextngramrange = $pfeatextngramrange_temp
 #end if
 
 #if '__ob__' in str($pfeatextngramrange):
@@ -85,30 +145,75 @@ qiime feature-classifier fit-classifier-naive-bayes
 #end if
 
 
+
+
+
 #if $pfeatextnonnegative:
  --p-feat-ext--non-negative
+#end if
+
+
+#if '__sq__' in str($pfeatextnorm):
+  #set $pfeatextnorm_temp = $pfeatextnorm.replace('__sq__', "'")
+  #set $pfeatextnorm = $pfeatextnorm_temp
 #end if
 
 #if str($pfeatextnorm):
  --p-feat-ext--norm="$pfeatextnorm"
 #end if
 
+
+
+
+#if '__sq__' in str($pfeatextpreprocessor):
+  #set $pfeatextpreprocessor_temp = $pfeatextpreprocessor.replace('__sq__', "'")
+  #set $pfeatextpreprocessor = $pfeatextpreprocessor_temp
+#end if
+
 #if str($pfeatextpreprocessor):
  --p-feat-ext--preprocessor="$pfeatextpreprocessor"
+#end if
+
+
+
+
+#if '__sq__' in str($pfeatextstopwords):
+  #set $pfeatextstopwords_temp = $pfeatextstopwords.replace('__sq__', "'")
+  #set $pfeatextstopwords = $pfeatextstopwords_temp
 #end if
 
 #if str($pfeatextstopwords):
  --p-feat-ext--stop-words="$pfeatextstopwords"
 #end if
 
+
+
+
+
+#if '__sq__' in str($pfeatextstripaccents):
+  #set $pfeatextstripaccents_temp = $pfeatextstripaccents.replace('__sq__', "'")
+  #set $pfeatextstripaccents = $pfeatextstripaccents_temp
+#end if
+
 #if str($pfeatextstripaccents):
  --p-feat-ext--strip-accents="$pfeatextstripaccents"
+#end if
+
+
+
+
+
+
+#if '__sq__' in str($pfeatexttokenpattern):
+  #set $pfeatexttokenpattern_temp = $pfeatexttokenpattern.replace('__sq__', "'")
+  #set $pfeatexttokenpattern = $pfeatexttokenpattern_temp
 #end if
 
 #if '__ob__' in str($pfeatexttokenpattern):
   #set $pfeatexttokenpattern_temp = $pfeatexttokenpattern.replace('__ob__', '[')
   #set $pfeatexttokenpattern = $pfeatexttokenpattern_temp
 #end if
+
 #if 'X' in str($pfeatexttokenpattern):
   #set $pfeatexttokenpattern_temp = $pfeatexttokenpattern.replace('X', '\\')
   #set $pfeatexttokenpattern = $pfeatexttokenpattern_temp
@@ -118,6 +223,14 @@ qiime feature-classifier fit-classifier-naive-bayes
  --p-feat-ext--token-pattern="$pfeatexttokenpattern"
 #end if
 
+
+
+
+
+#if '__sq__' in str($pfeatexttokenizer):
+  #set $pfeatexttokenizer_temp = $pfeatexttokenizer.replace('__sq__', "'")
+  #set $pfeatexttokenizer = $pfeatexttokenizer_temp
+#end if
 
 #if str($pfeatexttokenizer):
  --p-feat-ext--tokenizer="$pfeatexttokenizer"

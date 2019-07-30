@@ -14,13 +14,36 @@ qiime cutadapt trim-paired
 --p-cores=$pcores
 #end if
 
+
+
+#if '__sq__' in str($padapterf):
+  #set $padapterf_temp = $padapterf.replace('__sq__', "'")
+  #set $padapterf = $padapterf_temp
+#end if
+
+#if 'X' in str($padapterf):
+  #set $padapterf_temp = $padapterf.replace('X', "$")
+  #set $padapterf = $padapterf_temp
+#end if
+
 #if str($padapterf):
  --p-adapter-f="$padapterf"
+#end if
+
+
+
+
+#if '__sq__' in str($pfrontf):
+  #set $pfrontf_temp = $pfrontf.replace('__sq__', "'")
+  #set $pfrontf = $pfrontf_temp
 #end if
 
 #if str($pfrontf):
  --p-front-f="$pfrontf"
 #end if
+
+
+
 
 #if '__sq__' in str($panywheref):
   #set $panywheref_temp = $panywheref.replace('__sq__', "'")
@@ -32,13 +55,35 @@ qiime cutadapt trim-paired
 #end if
 
 
+
+
+
+#if '__sq__' in str($padapterr):
+  #set $padapterr_temp = $padapterr.replace('__sq__', "'")
+  #set $padapterr = $padapterr_temp
+#end if
+
+#if 'X' in str($padapterr):
+  #set $padapterr_temp = $padapterr.replace('X', "$")
+  #set $padapterr = $padapterr_temp
+#end if
+
 #if str($padapterr):
  --p-adapter-r="$padapterr"
+#end if
+
+
+
+#if '__sq__' in str($pfrontr):
+  #set $pfrontr_temp = $pfrontr.replace('__sq__', "'")
+  #set $pfrontr = $pfrontr_temp
 #end if
 
 #if str($pfrontr):
  --p-front-r="$pfrontr"
 #end if
+
+
 
 #if '__sq__' in str($panywherer):
   #set $panywherer_temp = $panywherer.replace('__sq__', "'")
@@ -49,7 +94,9 @@ qiime cutadapt trim-paired
  --p-anywhere-r="$panywherer"
 #end if
 
-#if $perrorrate:
+
+
+#if str($perrorrate):
  --p-error-rate=$perrorrate
 #end if
 
@@ -61,7 +108,7 @@ qiime cutadapt trim-paired
  --p-times=$ptimes
 #end if
 
-#if $poverlap:
+#if str($poverlap):
  --p-overlap=$poverlap
 #end if
 

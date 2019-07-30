@@ -9,7 +9,7 @@ qiime demux summarize
 
 --i-data=$idata
 
-#if $pn:
+#if str($pn):
  --p-n=$pn
 #end if
 

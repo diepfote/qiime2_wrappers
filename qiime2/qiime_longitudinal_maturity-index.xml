@@ -24,11 +24,11 @@ qiime longitudinal maturity-index
  --p-n-estimators=$pnestimators
 #end if
 
-#if $ptestsize:
+#if str($ptestsize):
  --p-test-size=$ptestsize
 #end if
 
-#if $pstep:
+#if str($pstep):
  --p-step=$pstep
 #end if
 
@@ -62,7 +62,7 @@ qiime longitudinal maturity-index
  --p-missing-samples=$pmissingsamples
 #end if
 
-#if $pfeaturecount:
+#if str($pfeaturecount):
  --p-feature-count=$pfeaturecount
 #end if
 
@@ -139,7 +139,7 @@ qiime tools export --input-path ovolatilityplots.qzv --output-path out   && mkdi
 		</param>
 		<param label="--p-feature-count: INTEGER Range(0, None)       Filter feature table to include top N most important features. Set to zero to include all features. [default: 50]" name="pfeaturecount" optional="True" type="integer" min="0" value="50"/>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
+		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file  [required]">
 			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>	</inputs>
 

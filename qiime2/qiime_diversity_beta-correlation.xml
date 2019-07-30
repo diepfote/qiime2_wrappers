@@ -8,7 +8,17 @@
 qiime diversity beta-correlation
 
 --i-distance-matrix=$idistancematrix
+
+
+
+#if '__sq__' in str($mmetadatacolumn):
+  #set $mmetadatacolumn_temp = $mmetadatacolumn.replace('__sq__', "'")
+  #set $mmetadatacolumn = $mmetadatacolumn_temp
+#end if
+
 --m-metadata-column="$mmetadatacolumn"
+
+
 
 #if str($pmethod) != 'None':
  --p-method=$pmethod
@@ -22,13 +32,30 @@ qiime diversity beta-correlation
  --p-intersect-ids
 #end if
 
+
+
+
+#if '__sq__' in str($plabel1):
+  #set $plabel1_temp = $plabel1.replace('__sq__', "'")
+  #set $plabel1 = $plabel1_temp
+#end if
+
 #if str($plabel1):
  --p-label1="$plabel1"
+#end if
+
+
+
+#if '__sq__' in str($plabel2):
+  #set $plabel2_temp = $plabel2.replace('__sq__', "'")
+  #set $plabel2 = $plabel2_temp
 #end if
 
 #if str($plabel2):
  --p-label2="$plabel2"
 #end if
+
+
 
 #if $input_files_mmetadatafile:
 #def list_dict_to_string(list_dict):

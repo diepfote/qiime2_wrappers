@@ -10,11 +10,11 @@ qiime sample-classifier regress-samples
 --i-table=$itable
 --m-metadata-column="$mmetadatacolumn"
 
-#if $ptestsize:
+#if str($ptestsize):
  --p-test-size=$ptestsize
 #end if
 
-#if $pstep:
+#if str($pstep):
  --p-step=$pstep
 #end if
 
@@ -33,7 +33,7 @@ qiime sample-classifier regress-samples
 #end if
 
 
-#if $pnestimators:
+#if str($pnestimators):
  --p-n-estimators=$pnestimators
 #end if
 
@@ -58,16 +58,13 @@ qiime sample-classifier regress-samples
 #end if
 
 
-#if $input_files_mmetadatafile:
-#def list_dict_to_string(list_dict):
-	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-	#for d in list_dict[1:]:
-		#set $file_list = $file_list + ' --m-metadata-file=' + d['additional_input'].__getattr__('file_name')
-	#end for
-	#return $file_list
-#end def
- --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
+
+
+#if $metadatafile:
+ --m-metadata-file=$metadatafile
 #end if
+
+
 
 
 --o-sample-estimator=osampleestimator
@@ -89,9 +86,9 @@ qiime tools export --input-path oaccuracyresults.qzv --output-path out   && mkdi
 	<inputs>
 		<param format="qza,no_unzip.zip" label="--i-table: ARTIFACT FeatureTable[Frequency] Feature table containing all features that should be used for target prediction.                  [required]" name="itable" optional="False" type="data"/>
 		<param label="--m-metadata-column: COLUMN  MetadataColumn[Numeric] Numeric metadata column to use as prediction target. [required]" name="mmetadatacolumn" optional="False" type="text"/>
-		<param label="--p-test-size: PROPORTION Range(0.0, 1.0, inclusive_start=False) Fraction of input samples to exclude from training set and use for classifier testing.          [default: 0.2]" name="ptestsize" optional="True" type="float" value="0.2"/>
-		<param label="--p-step: PROPORTION Range(0.0, 1.0, inclusive_start=False) If optimize-feature-selection is True, step is the percentage of features to remove at each iteration. [default: 0.05]" name="pstep" optional="True" type="float" value="0.05"/>
-		<param label="--p-cv: INTEGER       Number of k-fold cross-validations to perform. Range(1, None)                                                [default: 5]" name="pcv" optional="True" type="integer" value="5"/>
+		<param label="--p-test-size: PROPORTION Range(0.0, 1.0, inclusive_start=False) Fraction of input samples to exclude from training set and use for classifier testing.          [default: 0.2]" name="ptestsize" optional="True" type="float" value="0.2" min="0" max="1" />
+		<param label="--p-step: PROPORTION Range(0.0, 1.0, inclusive_start=False) If optimize-feature-selection is True, step is the percentage of features to remove at each iteration. [default: 0.05]" name="pstep" optional="True" type="float" value="0.05" min="0" max="1" />
+		<param label="--p-cv: INTEGER       Number of k-fold cross-validations to perform. Range(1, None)                                                [default: 5]" name="pcv" optional="True" type="integer" value="5" min="1"/>
 		<param label="--p-random-state: INTEGER Seed used by random number generator.        [optional]" name="prandomstate" optional="True" type="integer"/>
 		<param label="--p-n-estimators: INTEGER Range(1, None)     Number of trees to grow for estimation. More trees will improve predictive accuracy up to a threshold level, but will also increase time and memory requirements. This parameter only affects ensemble estimators, such as Random Forest, AdaBoost, ExtraTrees, and GradientBoosting.        [default: 100]" name="pnestimators" optional="True" type="integer" value="100" min="1"/>
 		<param label="--p-estimator: " name="pestimator" optional="True" type="select">
@@ -116,9 +113,9 @@ qiime tools export --input-path oaccuracyresults.qzv --output-path out   && mkdi
 			<option value="ignore">ignore</option>
 		</param>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
-			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
-		</repeat>
+
+		<param label="--m-metadata-file METADATA" name="metadatafile" type="data" format="tabular,qza,no_unzip.zip" />
+
 
 	</inputs>
 	<outputs>

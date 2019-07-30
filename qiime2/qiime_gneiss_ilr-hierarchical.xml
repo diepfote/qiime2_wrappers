@@ -10,7 +10,7 @@ qiime gneiss ilr-hierarchical
 --i-table=$itable
 --i-tree=$itree
 
-#if $ppseudocount:
+#if str($ppseudocount):
  --p-pseudocount=$ppseudocount
 #end if
 

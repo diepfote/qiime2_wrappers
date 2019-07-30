@@ -59,7 +59,7 @@ cp ofilteredtable.qza $ofilteredtable
 
 		<param label="--p-include: TEXT       One or more search terms that indicate which taxa should be included in the resulting table. If providing more than one term, terms should be delimited by the query-delimiter character. By default, all taxa will be included.        [optional]" name="pinclude" optional="True" type="text"/>
 		<param label="--p-exclude: TEXT       One or more search terms that indicate which taxa should be excluded from the resulting table. If providing more than one term, terms should be delimited by the query-delimiter character. By default, no taxa will be excluded.         [optional]" name="pexclude" optional="True" type="text"/>
-		<param label="--p-query-delimiter: TEXT The string used to delimit multiple search terms provided to include or exclude. This parameter should only need to be modified if the default delimiter (a comma) is used in the provided taxonomic annotations. [default: ',']" name="pquerydelimiter" optional="True" type="text" value=",'"/>
+		<param label="--p-query-delimiter: TEXT The string used to delimit multiple search terms provided to include or exclude. This parameter should only need to be modified if the default delimiter (a comma) is used in the provided taxonomic annotations. [default: ',']" name="pquerydelimiter" optional="True" type="text" value=","/>
 		<param label="--p-mode: " name="pmode" optional="True" type="select">
 			<option selected="True" value="None">Selection is Optional</option>
 			<option value="exact">exact</option>

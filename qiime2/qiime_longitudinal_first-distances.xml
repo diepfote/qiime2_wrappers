@@ -48,7 +48,7 @@ cp ofirstdistances.qza $ofirstdistances
 			<option value="drop">drop</option>
 		</param>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
+		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file  [required]">
 			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 

@@ -7,8 +7,8 @@
 	<command>
 mkdir out;
 
-qiime tools export --input-path --output-path out $taxonomy_qza;
-qiime tools export --input-path --output-path out $biom_qza;
+qiime tools export --input-path $taxonomy_qza --output-path out;
+qiime tools export --input-path $biom_qza --output-path out;
 
 sed -i '1s;^;#;' out/*.tsv;
 sed -i 's/Confidence/confidence/g' out/*.tsv;

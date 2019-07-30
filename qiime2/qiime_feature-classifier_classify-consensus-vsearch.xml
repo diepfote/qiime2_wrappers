@@ -20,6 +20,7 @@ qiime feature-classifier classify-consensus-vsearch
 #end if
 
 
+
 #if $pmaxaccepts:
  --p-maxaccepts=$pmaxaccepts
 #end if
@@ -40,9 +41,21 @@ qiime feature-classifier classify-consensus-vsearch
  --p-min-consensus=$pminconsensus
 #end if
 
+
+
+
+
+#if '__sq__' in str($punassignablelabel):
+  #set $punassignablelabel_temp = $punassignablelabel.replace('__sq__', "'")
+  #set $punassignablelabel = $punassignablelabel_temp
+#end if
+
 #if str($punassignablelabel):
  --p-unassignable-label="$punassignablelabel"
 #end if
+
+
+
 
 #set $pthreads = '${GALAXY_SLOTS:-4}'
 #if str($pthreads):

@@ -9,7 +9,10 @@ qiime vsearch cluster-features-closed-reference
 --i-sequences=$isequences
 --i-table=$itable
 --i-reference-sequences=$ireferencesequences
---p-perc-identity="$ppercidentity"
+
+#if str($ppercidentity):
+  --p-perc-identity="$ppercidentity"
+#end if
 
 #if str($pstrand) != 'None':
  --p-strand=$pstrand

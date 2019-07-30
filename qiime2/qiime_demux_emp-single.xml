@@ -42,8 +42,8 @@ cp opersamplesequences.qza $opersamplesequences;
 cp oerrorcorrectiondetails.qza $oerrorcorrectiondetails
 	]]></command>
 	<inputs>
-		<repeat name="input_files_mbarcodesfile" optional="False" title="--m-barcodes-file">
-			<param label="--m-barcodes-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [required]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip"/>
+		<repeat name="input_files_mbarcodesfile" optional="True" title="--m-barcodes-file [optional]">
+			<param label="--m-barcodes-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip"/>
 		</repeat>
 
 		<param format="qza,no_unzip.zip" label="--i-seqs: ARTIFACT RawSequences | EMPSingleEndSequences | EMPPairedEndSequences The single-end sequences to be demultiplexed. [required]" name="iseqs" optional="False" type="data"/>

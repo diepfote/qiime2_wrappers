@@ -14,7 +14,7 @@ qiime quality-control exclude-seqs
  --p-method=$pmethod
 #end if
 
-#if $ppercidentity:
+#if str($ppercidentity):
  --p-perc-identity=$ppercidentity
 #end if
 
@@ -22,7 +22,7 @@ qiime quality-control exclude-seqs
  --p-evalue="$pevalue"
 #end if
 
-#if $ppercqueryaligned:
+#if str($ppercqueryaligned):
  --p-perc-query-aligned=$ppercqueryaligned
 #end if
 
@@ -47,7 +47,7 @@ cp osequencemisses.qza $osequencemisses
 			<option value="blastn-short">blastn-short</option>
 		</param>
 		<param label="--p-perc-identity: PROPORTION Range(0.0, 1.0, inclusive_end=True) Reject match if percent identity to reference is lower. Must be in range [0.0, 1.0]      [default: 0.97]" name="ppercidentity" optional="True" type="float" value="0.97" min="0" max="1" exclusive_end="False"/>
-		<param label="--p-evalue: NUMBER    BLAST expectation (E) value threshold for saving hits. Reject if E value is higher than threshold. This threshold is disabled by default.            [optional]" name="pevalue" optional="True" type="text"/>
+		<param label="--p-evalue: NUMBER    BLAST expectation (E) value threshold for saving hits. Reject if E value is higher than threshold. This threshold is disabled by default.            [optional]" name="pevalue" optional="True" type="float"/>
 		<param label="--p-perc-query-aligned: NUMBER Percent of query sequence that must align to reference in order to be accepted as a hit.       [default: 0.97]" name="ppercqueryaligned" optional="True" type="float" value="0.97"/>
 	</inputs>
 	<outputs>

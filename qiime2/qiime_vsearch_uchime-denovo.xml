@@ -10,7 +10,7 @@ qiime vsearch uchime-denovo
 --i-sequences=$isequences
 --i-table=$itable
 
-#if $pdn:
+#if str($pdn):
  --p-dn=$pdn
 #end if
 
@@ -18,11 +18,11 @@ qiime vsearch uchime-denovo
  --p-mindiffs=$pmindiffs
 #end if
 
-#if $pmindiv:
+#if str($pmindiv):
  --p-mindiv=$pmindiv
 #end if
 
-#if $pminh:
+#if str($pminh):
  --p-minh=$pminh
 #end if
 

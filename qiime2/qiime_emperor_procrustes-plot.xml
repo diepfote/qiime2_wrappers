@@ -8,6 +8,7 @@
 qiime emperor procrustes-plot
 
 --i-reference-pcoa=$ireferencepcoa
+
 --i-other-pcoa=$iotherpcoa
 
 
@@ -24,9 +25,22 @@ qiime emperor procrustes-plot
 
 
 
+#if '__sq__' in str($pcustomaxes):
+  #set $pcustomaxes_temp = $pcustomaxes.replace('__sq__', "'")
+  #set $pcustomaxes = $pcustomaxes_temp
+#end if
+
+#if '__cb__' in str($pcustomaxes):
+  #set $pcustomaxes_temp = $pcustomaxes.replace('__cb__', "]")
+  #set $pcustomaxes = $pcustomaxes_temp
+#end if
+
 #if str($pcustomaxes):
  --p-custom-axes="$pcustomaxes"
 #end if
+
+
+
 
 #if $pignoremissingsamples:
  --p-ignore-missing-samples
@@ -44,7 +58,7 @@ qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir 
 		<param label="--p-custom-axes: TEXT... List[Str]          Numeric sample metadata columns that should be included as axes in the Emperor plot.        [optional]" name="pcustomaxes" optional="True" type="text"/>
 		<param label="--p-ignore-missing-samples: --p-no-ignore-missing-samples This will suppress the error raised when the coordinates matrix contains samples that are not present in the metadata. Samples without metadata are included by setting all metadata values to: 'This sample has no metadata'. This flag is only applied if at least one sample is present in both the coordinates matrix and the metadata.               [default: False]" name="pignoremissingsamples" selected="False" type="boolean"/>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
+		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file  [required]">
 			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 

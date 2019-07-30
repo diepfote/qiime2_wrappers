@@ -37,7 +37,7 @@ qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir 
 		<param label="--p-formula: TEXT     Formula specifying the statistical model. In other words, a list of the metadata categories that will be used in the regression model, typically separated by '+'. For more information see https://patsy.readthedocs.io/en/latest/API-reference.html                                           [required]" name="pformula" optional="False" type="text"/>
 
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
+		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file  [required]">
 			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 	</inputs>

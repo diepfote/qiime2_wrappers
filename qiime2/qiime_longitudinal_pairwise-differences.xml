@@ -11,7 +11,17 @@ qiime longitudinal pairwise-differences
 --p-state-column="$pstatecolumn"
 --p-state-1="$pstate1"
 --p-state-2="$pstate2"
---p-individual-id-column="$pindividualidcolumn"
+
+
+#if '__sq__' in str($pindividualidcolumn):
+  #set $pindividualidcolumn_temp = $pindividualidcolumn.replace('__sq__', "'")
+  #set $pindividualidcolumn = $pindividualidcolumn_temp
+#end if
+#if str($pindividualidcolumn):
+ --p-individual-id-column="$pindividualidcolumn"
+#end if
+
+
 
 #if str($itable) != 'None':
  --i-table=$itable

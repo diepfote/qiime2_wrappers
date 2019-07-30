@@ -12,21 +12,14 @@ qiime sample-classifier split-table
 
 
 
-#if $input_files_mmetadatafile:
-#def list_dict_to_string(list_dict):
-	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-	#for d in list_dict[1:]:
-		#set $file_list = $file_list + ' --m-metadata-file=' + d['additional_input'].__getattr__('file_name')
-	#end for
-	#return $file_list
-#end def
-
- --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
+#if $metadatafile:
+ --m-metadata-file=$metadatafile
 #end if
 
 
 
-#if $ptestsize:
+
+#if str($ptestsize):
  --p-test-size=$ptestsize
 #end if
 
@@ -47,7 +40,6 @@ qiime sample-classifier split-table
 ;
 cp otrainingtable.qza $otrainingtable;
 cp otesttable.qza $otesttable;
-cp mmetadatafile.qza $mmetadatafile
 	]]></command>
 	<inputs>
 		<param format="qza,no_unzip.zip" label="--i-table: ARTIFACT FeatureTable[Frequency] Feature table containing all features that should be used for target prediction.                  [required]" name="itable" optional="False" type="data"/>
@@ -61,9 +53,7 @@ cp mmetadatafile.qza $mmetadatafile
 			<option value="ignore">ignore</option>
 		</param>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
-			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
-		</repeat>
+		<param label="--m-metadata-file METADATA" name="metadatafile" type="data" format="tabular,qza,no_unzip.zip" />
 
 	</inputs>
 	<outputs>

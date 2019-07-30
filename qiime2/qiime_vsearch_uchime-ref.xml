@@ -11,7 +11,7 @@ qiime vsearch uchime-ref
 --i-table=$itable
 --i-reference-sequences=$ireferencesequences
 
-#if $pdn:
+#if str($pdn):
  --p-dn=$pdn
 #end if
 
@@ -19,11 +19,11 @@ qiime vsearch uchime-ref
  --p-mindiffs=$pmindiffs
 #end if
 
-#if $pmindiv:
+#if str($pmindiv):
  --p-mindiv=$pmindiv
 #end if
 
-#if $pminh:
+#if str($pminh):
  --p-minh=$pminh
 #end if
 

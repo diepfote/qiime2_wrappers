@@ -11,19 +11,12 @@ qiime quality-control evaluate-composition
 --i-observed-features=$iobservedfeatures
 
 
-#if $input_files_mmetadatafile:
-#def list_dict_to_string(list_dict):
-	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-	#for d in list_dict[1:]:
-		#set $file_list = $file_list + ' --m-metadata-file=' + d['additional_input'].__getattr__('file_name')
-	#end for
-	#return $file_list
-#end def
- --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
+#if $metadatafile:
+ --m-metadata-file=$metadatafile
 #end if
 
 
-#if $pdepth:
+#if str($pdepth):
  --p-depth=$pdepth
 #end if
 
@@ -59,8 +52,8 @@ qiime quality-control evaluate-composition
  --p-plot-observed-features
 #end if
 
-#if $pplotobservedfeaturesratio:
- --p-plot-observed-features-ratio
+#if $pnoplotobservedfeaturesratio:
+ --p-no-plot-observed-features-ratio
 #end if
 
 #if str($mmetadatacolumn):
@@ -108,9 +101,8 @@ qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir 
 		<param label="--p-no-plot-observed-features-ratio: Do not plot ratio of observed:expected features on score plot.                                   [default: False]" name="pnoplotobservedfeaturesratio" selected="False" type="boolean"/>
 		<param label="--m-metadata-column: COLUMN  MetadataColumn[Categorical] Optional sample metadata that maps observed-features sample IDs to expected-features sample IDs.  [optional]" name="mmetadatacolumn" optional="True" type="text"/>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
-			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
-		</repeat>
+		<param label="--m-metadata-file METADATA" name="metadatafile" type="data" format="tabular,qza,no_unzip.zip" />
+
 
 	</inputs>
 	<outputs>

@@ -19,6 +19,7 @@ qiime alignment mask
  --p-min-conservation=$pminconservation
 #end if
 
+;
 cp omaskedalignment.qza $omaskedalignment
 	]]></command>
 	<inputs>

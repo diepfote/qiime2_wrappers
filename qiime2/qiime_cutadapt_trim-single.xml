@@ -13,13 +13,37 @@ qiime cutadapt trim-single
 --p-cores=$pcores
 #end if
 
+
+#if '__sq__' in str($padapter):
+  #set $padapter_temp = $padapter.replace('__sq__', "'")
+  #set $padapter = $padapter_temp
+#end if
+
+#if 'X' in str($padapter):
+  #set $padapter_temp = $padapter.replace('X', "$")
+  #set $padapter = $padapter_temp
+#end if
+
 #if str($padapter):
  --p-adapter="$padapter"
+#end if
+
+
+
+
+
+#if '__sq__' in str($pfront):
+  #set $pfront_temp = $pfront.replace('__sq__', "'")
+  #set $pfront = $pfront_temp
 #end if
 
 #if str($pfront):
  --p-front="$pfront"
 #end if
+
+
+
+
 
 #if '__sq__' in str($panywhere):
   #set $panywhere_temp = $panywhere.replace('__sq__', "'")
@@ -31,7 +55,9 @@ qiime cutadapt trim-single
 #end if
 
 
-#if $perrorrate:
+
+
+#if str($perrorrate):
  --p-error-rate=$perrorrate
 #end if
 
@@ -39,11 +65,11 @@ qiime cutadapt trim-single
  --p-no-indels
 #end if
 
-#if $ptimes:
+#if str($ptimes):
  --p-times=$ptimes
 #end if
 
-#if $poverlap:
+#if str($poverlap):
  --p-overlap=$poverlap
 #end if
 
@@ -55,7 +81,7 @@ qiime cutadapt trim-single
  --p-no-match-adapter-wildcards
 #end if
 
-#if $pminimumlength:
+#if str($pminimumlength):
  --p-minimum-length=$pminimumlength
 #end if
 

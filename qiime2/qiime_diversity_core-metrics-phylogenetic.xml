@@ -79,8 +79,8 @@ qiime tools export --input-path obraycurtisemperor.qzv --output-path out   && mk
 		<param format="qza,no_unzip.zip" label="--i-phylogeny: ARTIFACT  Phylogenetic tree containing tip identifiers that Phylogeny[Rooted]     correspond to the feature identifiers in the table. This tree can contain tip ids that are not present in the table, but all feature ids in the table must be present in this tree.                  [required]" name="iphylogeny" optional="False" type="data"/>
 		<param label="--p-sampling-depth: INTEGER Range(1, None)        The total frequency that each sample should be rarefied to prior to computing diversity metrics. [required]" name="psamplingdepth" optional="False" min="1" value="" type="integer"/>
 
-		<repeat name="input_files_mmetadatafile" optional="False" title="--m-metadata-file">
-			<param label="--m-metadata-file:  (multiple arguments will be merged) The sample metadata to use in the emperor plots. [required]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
+		<repeat name="input_files_mmetadatafile" optional="False" title="--m-metadata-file [required]">
+			<param label="--m-metadata-file:  (multiple arguments will be merged) The sample metadata to use in the emperor plots. [required]" name="additional_input" optional="False" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 
 	</inputs>

@@ -9,15 +9,15 @@ qiime feature-table core-features
 
 --i-table=$itable
 
-#if $pminfraction:
+#if str($pminfraction):
  --p-min-fraction=$pminfraction
 #end if
 
-#if $pmaxfraction:
+#if str($pmaxfraction):
  --p-max-fraction=$pmaxfraction
 #end if
 
-#if $psteps:
+#if str($psteps):
  --p-steps=$psteps
 #end if
 

@@ -11,23 +11,23 @@ qiime feature-classifier extract-reads
 --p-f-primer="$pfprimer"
 --p-r-primer="$prprimer"
 
-#if $ptrunclen:
+#if str($ptrunclen):
  --p-trunc-len=$ptrunclen
 #end if
 
-#if $ptrimleft:
+#if str($ptrimleft):
  --p-trim-left=$ptrimleft
 #end if
 
-#if $pidentity:
+#if str($pidentity):
  --p-identity=$pidentity
 #end if
 
-#if $pminlength:
+#if str($pminlength):
  --p-min-length=$pminlength
 #end if
 
-#if $pmaxlength:
+#if str($pmaxlength):
  --p-max-length=$pmaxlength
 #end if
 

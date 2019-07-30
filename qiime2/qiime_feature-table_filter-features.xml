@@ -22,7 +22,7 @@ qiime feature-table filter-features
 #end if
 
 
-#if $pminfrequency:
+#if str($pminfrequency):
  --p-min-frequency=$pminfrequency
 #end if
 
@@ -30,7 +30,7 @@ qiime feature-table filter-features
  --p-max-frequency="$pmaxfrequency"
 #end if
 
-#if $pminsamples:
+#if str($pminsamples):
  --p-min-samples=$pminsamples
 #end if
 
@@ -47,7 +47,7 @@ qiime feature-table filter-features
  --p-where="$pwhere"
 #end if
 
-#if $pexcludeids:
+#if str($pexcludeids):
  --p-exclude-ids
 #end if
 

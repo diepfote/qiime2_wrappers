@@ -13,9 +13,12 @@ qiime phylogeny iqtree-ultrafast-bootstrap
  --p-seed="$pseed"
 #end if
 
-#if $pncores:
- --p-n-cores=$pncores
+
+#set $pncores = '${GALAXY_SLOTS:-4}'
+#if str($pncores):
+--p-n-cores=$pncores
 #end if
+
 
 #if $pnruns:
  --p-n-runs=$pnruns
@@ -100,7 +103,6 @@ cp otree.qza $otree
 	<inputs>
 		<param format="qza,no_unzip.zip" label="--i-alignment: ARTIFACT FeatureData[AlignedSequence] Aligned sequences to be used for phylogenetic reconstruction.                           [required]" name="ialignment" optional="False" type="data"/>
 		<param label="--p-seed: INTEGER        Random number seed. If not set, program defaults will be used. See IQ-TREE manual for details. [optional]" name="pseed" optional="True" type="integer"/>
-		<param label="--p-n-cores: INTEGER     The number of cores to use for parallel processing. Range(0, None)        Use '0' to let IQ-TREE automatically determine the optimal number of cores to use.         [default: 1]" name="pncores" optional="True" type="integer" min="0" value="1"/>
 		<param label="--p-n-runs: INTEGER      Number of indepedent runs. Multiple  independent Range(1, None)        runs (e.g. 10) can outperform a single run in terms of likelihood maximisation.             [default: 1]" name="pnruns" optional="True" type="integer" min="1" value="1"/>
 		<param label="--p-substitution-model: " name="psubstitutionmodel" optional="True" type="select">
 			<option selected="True" value="None">Selection is Optional</option>

@@ -10,7 +10,7 @@ qiime sample-classifier scatterplot
 --i-predictions=$ipredictions
 --m-truth-column="$mtruthcolumn"
 
---m-truth-file="$metadatafile"
+--m-truth-file="$mtruthfile"
 
 #if str($pmissingsamples) != 'None':
  --p-missing-samples=$pmissingsamples
@@ -21,7 +21,6 @@ qiime sample-classifier scatterplot
 qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir -p '$ovisualization.files_path'
 && cp -r out/* '$ovisualization.files_path'
 && mv '$ovisualization.files_path/index.html' '$ovisualization';
-cp mtruthfile.qza $mtruthfile
 	]]></command>
 	<inputs>
 		<param format="qza,no_unzip.zip" label="--i-predictions: ARTIFACT SampleData[RegressorPredictions] Predicted values to plot on y axis. Must be predictions of numeric data produced by a sample regressor.                                   [required]" name="ipredictions" optional="False" type="data"/>
@@ -32,7 +31,7 @@ cp mtruthfile.qza $mtruthfile
 			<option value="ignore">ignore</option>
 		</param>
 
-		<param label="--m-truth-file: Metadata file or artifact viewable as metadata." name="metadatafile" type="data" format="tabular,qza,no_unzip.zip" />
+		<param label="--m-truth-file: Metadata file or artifact viewable as metadata." name="mtruthfile" type="data" format="tabular,qza,no_unzip.zip" />
 
 	</inputs>
 	<outputs>

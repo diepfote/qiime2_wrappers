@@ -19,11 +19,10 @@ qiime diversity core-metrics
 #def list_dict_to_string(list_dict):
 #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
 #for d in list_dict[1:]:
-	#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+	#set $file_list = $file_list + ' --m-metadata-file=' + d['additional_input'].__getattr__('file_name')
 #end for
 #return $file_list
 #end def
-
 --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
 #end if
 
@@ -57,7 +56,7 @@ qiime tools export --input-path obraycurtisemperor.qzv --output-path out   && mk
 		<param format="qza,no_unzip.zip" label="--i-table: ARTIFACT FeatureTable[Frequency] The feature table containing the samples over which diversity metrics should be computed.        [required]" name="itable" optional="False" type="data"/>
 		<param label="--p-sampling-depth: INTEGER Range(1, None)     The total frequency that each sample should be rarefied to prior to computing diversity metrics. [required]" name="psamplingdepth" optional="False" min="1" value="" type="integer"/>
 
-		<repeat name="input_files_mmetadatafile" optional="False" title="--m-metadata-file">
+		<repeat name="input_files_mmetadatafile" optional="False" title="--m-metadata-file  [required]">
 			<param label="--m-metadata-file: METADATA... (multiple arguments will be merged) The sample metadata to use in the emperor plots. [required]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 

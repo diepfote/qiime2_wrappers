@@ -14,7 +14,7 @@ qiime diversity mantel
  --p-method=$pmethod
 #end if
 
-#if $ppermutations:
+#if str($ppermutations):
  --p-permutations=$ppermutations
 #end if
 
@@ -22,13 +22,29 @@ qiime diversity mantel
  --p-intersect-ids
 #end if
 
+
+
+#if '__sq__' in str($plabel1):
+  #set $plabel1_temp = $plabel1.replace('__sq__', "'")
+  #set $plabel1 = $plabel1_temp
+#end if
+
 #if str($plabel1):
  --p-label1="$plabel1"
+#end if
+
+
+
+#if '__sq__' in str($plabel2):
+  #set $plabel2_temp = $plabel2.replace('__sq__', "'")
+  #set $plabel2 = $plabel2_temp
 #end if
 
 #if str($plabel2):
  --p-label2="$plabel2"
 #end if
+
+
 
 --o-visualization=ovisualization
 ;

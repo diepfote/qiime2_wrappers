@@ -10,21 +10,30 @@ qiime emperor biplot
 --i-biplot=$ibiplot
 
 
-#def list_dict_to_string(list_dict):
+#if $m_sample_metadatafile:
+#def list_dict_to_string_sample_mdata(list_dict):
 #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
 #for d in list_dict[1:]:
-	#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+	#set $file_list = $file_list + ' --m-sample-metadata-file=' + d['additional_input'].__getattr__('file_name')
 #end for
 #return $file_list
 #end def
-
-#if $m_sample_metadatafile:
---m-sample-metadata-file=$list_dict_to_string($m_sample_metadatafile)
+--m-sample-metadata-file=$list_dict_to_string_sample_mdata($m_sample_metadatafile)
 #end if
 
-if $m_feature_metadatafile:
---m-feature-metadata-file=$list_dict_to_string($m_feature_metadatafile)
+
+
+#if $m_feature_metadatafile:
+#def list_dict_to_string_feature_mdata(list_dict):
+#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
+#for d in list_dict[1:]:
+	#set $file_list = $file_list + ' --m-feature-metadata-file=' + d['additional_input'].__getattr__('file_name')
+#end for
+#return $file_list
+#end def
+--m-feature-metadata-file=$list_dict_to_string_feature_mdata($m_feature_metadatafile)
 #end if
+
 
 
 #if $pignoremissingsamples:
@@ -46,11 +55,11 @@ qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir 
 		<param label="--p-ignore-missing-samples: --p-no-ignore-missing-samples This will suppress the error raised when the coordinates matrix contains samples that are not present in the metadata. Samples without metadata are included by setting all metadata values to: 'This sample has no metadata'. This flag is only applied if at least one sample is present in both the coordinates matrix and the metadata.               [default: False]" name="pignoremissingsamples" selected="False" type="boolean"/>
 		<param label="--p-number-of-features: INTEGER Range(1, None)     The number of most important features (arrows) to display in the ordination.                 [default: 5]" name="pnumberoffeatures" optional="True" type="integer" min="1" value="5"/>
 
-		<repeat name="m_sample_metadatafile" optional="False" title="--m-metadata-file">
+		<repeat name="m_sample_metadatafile" optional="False" title="--m-sample-metadata-file  [required]">
 			<param label="--m-sample-metadata-file: (multiple arguments will be merged)  The sample metadata. [required]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 
-		<repeat name="m_feature_metadatafile" optional="True" title="--m-metadata-file">
+		<repeat name="m_feature_metadatafile" optional="True" title="--m-feature-metadata-file">
 			<param label="--m-feature-metadata-file: (multiple arguments will be merged)  The feature metadata (useful to manipulate the arrows in the plot).  [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 

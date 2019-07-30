@@ -13,17 +13,7 @@ qiime feature-table group
 --p-mode=$pmode
 
 
-#if $input_files_mmetadatafile:
-#def list_dict_to_string(list_dict):
-	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-	#for d in list_dict[1:]:
-		#set $file_list = $file_list + ' --m-metadata-file=' + d['additional_input'].__getattr__('file_name')
-	#end for
-	#return $file_list
-#end def
- --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
-#end if
-
+--m-metadata-file=$mmedatafile
 
 --o-grouped-table=ogroupedtable
 ;
@@ -42,9 +32,7 @@ cp ogroupedtable.qza $ogroupedtable
 			<option value="sum">sum</option>
 		</param>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
-			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
-		</repeat>
+		<param label="--m-metadata-file  [required]" name="mmedatafile" type="data" format="tabular,qza,no_unzip.zip" />
 
 	</inputs>
 	<outputs>

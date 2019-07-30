@@ -14,7 +14,7 @@ qiime diversity adonis
 #def list_dict_to_string(list_dict):
   #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
   #for d in list_dict[1:]:
-	  #set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+	  #set $file_list = $file_list + ' --m-metadata-file=' + d['additional_input'].__getattr__('file_name')
   #end for
   #return $file_list
 #end def
@@ -22,7 +22,15 @@ qiime diversity adonis
 #end if
 
 
+
+#if '__sq__' in str($pformula):
+  #set $pformula_temp = $pformula.replace('__sq__', "'")
+  #set $pformula = $pformula_temp
+#end if
+
 --p-formula="$pformula"
+
+
 
 #if $ppermutations:
  --p-permutations=$ppermutations
@@ -44,7 +52,7 @@ qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir 
 		<param label="--p-formula: TEXT     Model formula containing only independent terms contained in the sample metadata. These can be continuous variables or factors, and they can have interactions as in a typical R formula. E.g., the formula 'treatment+block' would test whether the input distance matrix partitions based on 'treatment' and 'block' sample metadata. The formula 'treatment*block' would test both of those effects as well as their interaction. Enclose formulae in quotes to avoid unpleasant surprises.                        [required]" name="pformula" optional="False" type="text"/>
 		<param label="--p-permutations: INTEGER Range(1, None)     The number of permutations to be run when computing p-values.                                [default: 999]" name="ppermutations" optional="True" min="1" type="integer" value="999"/>
 
-		<repeat name="input_files_mmetadatafile" optional="False" title="--m-metadata-file">
+		<repeat name="input_files_mmetadatafile" optional="False" title="--m-metadata-file  [required]">
 			<param format="tabular" label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [required]" name="additional_input" type="data"/>
 		</repeat>
 	</inputs>

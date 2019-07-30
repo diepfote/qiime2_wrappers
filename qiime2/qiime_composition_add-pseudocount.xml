@@ -10,7 +10,7 @@ qiime composition add-pseudocount
 --i-table=$itable
 --o-composition-table=ocompositiontable
 
-#if $ppseudocount:
+#if str($ppseudocount):
  --p-pseudocount=$ppseudocount
 #end if
 ;
