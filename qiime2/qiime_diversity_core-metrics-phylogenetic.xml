@@ -9,7 +9,10 @@ qiime diversity core-metrics-phylogenetic
 
 --i-table=$itable
 --i-phylogeny=$iphylogeny
---p-sampling-depth="$psamplingdepth"
+
+#if str($psamplingdepth):
+ --p-sampling-depth="$psamplingdepth"
+#end if
 
 #set $pnjobs = '${GALAXY_SLOTS:-4}'
 #if str($pnjobs):

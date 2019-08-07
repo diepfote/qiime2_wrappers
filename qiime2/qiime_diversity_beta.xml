@@ -8,9 +8,10 @@
 qiime diversity beta
 
 --i-table=$itable
+
 --p-metric=$pmetric
 
-#if $ppseudocount:
+#if str($ppseudocount):
  --p-pseudocount=$ppseudocount
 #end if
 

@@ -8,7 +8,10 @@
 qiime diversity core-metrics
 
 --i-table=$itable
---p-sampling-depth="$psamplingdepth"
+
+#if str($psamplingdepth):
+ --p-sampling-depth="$psamplingdepth"
+#end if
 
 #set $pnjobs = '${GALAXY_SLOTS:-4}'
 #if str($pnjobs):

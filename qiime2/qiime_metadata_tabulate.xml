@@ -20,7 +20,7 @@ qiime metadata tabulate
 #end if
 
 
-#if $ppagesize:
+#if str($ppagesize):
  --p-page-size=$ppagesize
 #end if
 

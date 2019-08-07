@@ -9,7 +9,10 @@ qiime taxa collapse
 
 --i-table=$itable
 --i-taxonomy=$itaxonomy
---p-level="$plevel"
+
+#if str($plevel):
+ --p-level="$plevel"
+#end if
 
 --o-collapsed-table=ocollapsedtable
 ;

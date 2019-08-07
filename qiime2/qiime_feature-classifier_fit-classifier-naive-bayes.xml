@@ -23,11 +23,11 @@ qiime feature-classifier fit-classifier-naive-bayes
  --i-class-weight=$iclassweight
 #end if
 
-#if $pclassifyalpha:
+#if str($pclassifyalpha):
  --p-classify--alpha=$pclassifyalpha
 #end if
 
-#if $pclassifychunksize:
+#if str($pclassifychunksize):
  --p-classify--chunk-size=$pclassifychunksize
 #end if
 
@@ -119,7 +119,7 @@ qiime feature-classifier fit-classifier-naive-bayes
  --p-no-feat-ext--lowercase
 #end if
 
-#if $pfeatextnfeatures:
+#if str($pfeatextnfeatures):
  --p-feat-ext--n-features=$pfeatextnfeatures
 #end if
 

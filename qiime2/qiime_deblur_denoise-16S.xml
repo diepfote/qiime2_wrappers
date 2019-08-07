@@ -8,33 +8,38 @@
 qiime deblur denoise-16S
 
 --i-demultiplexed-seqs=$idemultiplexedseqs
---p-trim-length="$ptrimlength"
 
-#if $plefttrimlen:
+
+
+#if str($ptrimlength):
+ --p-trim-length=$ptrimlength
+#end if
+
+#if str($plefttrimlen):
  --p-left-trim-len=$plefttrimlen
 #end if
 
-#if $psamplestats:
+#if str($psamplestats):
  --p-sample-stats
 #end if
 
-#if $pmeanerror:
+#if str($pmeanerror):
  --p-mean-error=$pmeanerror
 #end if
 
-#if $pindelprob:
+#if str($pindelprob):
  --p-indel-prob=$pindelprob
 #end if
 
-#if $pindelmax:
+#if str($pindelmax):
  --p-indel-max=$pindelmax
 #end if
 
-#if $pminreads:
+#if str($pminreads):
  --p-min-reads=$pminreads
 #end if
 
-#if $pminsize:
+#if str($pminsize):
  --p-min-size=$pminsize
 #end if
 
@@ -45,7 +50,7 @@ qiime deblur denoise-16S
 #end if
 
 
-#if $pnohashedfeatureids:
+#if str($pnohashedfeatureids):
  --p-no-hashed-feature-ids
 #end if
 

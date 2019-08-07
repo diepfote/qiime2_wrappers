@@ -24,11 +24,11 @@ qiime gneiss dendrogram-heatmap
 #end if
 
 
-#if $ppseudocount:
+#if str($ppseudocount):
  --p-pseudocount=$ppseudocount
 #end if
 
-#if $pndim:
+#if str($pndim):
  --p-ndim=$pndim
 #end if
 

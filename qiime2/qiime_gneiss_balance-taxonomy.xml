@@ -25,15 +25,15 @@ qiime gneiss balance-taxonomy
 #end if
 
 
-#if $ppseudocount:
+#if str($ppseudocount):
  --p-pseudocount=$ppseudocount
 #end if
 
-#if $ptaxalevel:
+#if str($ptaxalevel):
  --p-taxa-level=$ptaxalevel
 #end if
 
-#if $pnfeatures:
+#if str($pnfeatures):
  --p-n-features=$pnfeatures
 #end if
 

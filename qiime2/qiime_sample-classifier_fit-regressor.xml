@@ -14,7 +14,7 @@ qiime sample-classifier fit-regressor
  --p-step=$pstep
 #end if
 
-#if $pcv:
+#if str($pcv):
  --p-cv=$pcv
 #end if
 
@@ -28,7 +28,7 @@ qiime sample-classifier fit-regressor
 #end if
 
 
-#if $pnestimators:
+#if str($pnestimators):
  --p-n-estimators=$pnestimators
 #end if
 

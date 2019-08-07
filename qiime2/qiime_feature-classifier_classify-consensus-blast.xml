@@ -19,15 +19,15 @@ qiime feature-classifier classify-consensus-blast
 #end if
 
 
-#if $pmaxaccepts:
+#if str($pmaxaccepts):
  --p-maxaccepts=$pmaxaccepts
 #end if
 
-#if $ppercidentity:
+#if str($ppercidentity):
  --p-perc-identity=$ppercidentity
 #end if
 
-#if $pquerycov:
+#if str($pquerycov):
  --p-query-cov=$pquerycov
 #end if
 
@@ -35,11 +35,11 @@ qiime feature-classifier classify-consensus-blast
  --p-strand=$pstrand
 #end if
 
-#if $pevalue:
+#if str($pevalue):
  --p-evalue=$pevalue
 #end if
 
-#if $pminconsensus:
+#if str($pminconsensus):
  --p-min-consensus=$pminconsensus
 #end if
 

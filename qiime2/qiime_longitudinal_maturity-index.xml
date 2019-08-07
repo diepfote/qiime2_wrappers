@@ -20,7 +20,7 @@ qiime longitudinal maturity-index
  --p-estimator=$pestimator
 #end if
 
-#if $pnestimators:
+#if str($pnestimators):
  --p-n-estimators=$pnestimators
 #end if
 
@@ -32,7 +32,7 @@ qiime longitudinal maturity-index
  --p-step=$pstep
 #end if
 
-#if $pcv:
+#if str($pcv):
  --p-cv=$pcv
 #end if
 

@@ -8,7 +8,11 @@
 qiime feature-table subsample
 
 --i-table=$itable
---p-subsampling-depth="$psubsamplingdepth"
+
+#if str($psubsamplingdepth):
+ --p-subsampling-depth="$psubsamplingdepth"
+#end if
+
 --p-axis=$paxis
 
 --o-sampled-table=osampledtable

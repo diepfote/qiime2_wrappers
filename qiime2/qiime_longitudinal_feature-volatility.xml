@@ -16,7 +16,7 @@ qiime longitudinal feature-volatility
  --p-individual-id-column="$pindividualidcolumn"
 #end if
 
-#if $pcv:
+#if str($pcv):
  --p-cv=$pcv
 #end if
 
@@ -31,7 +31,7 @@ qiime longitudinal feature-volatility
 #end if
 
 
-#if $pnestimators:
+#if str($pnestimators):
  --p-n-estimators=$pnestimators
 #end if
 

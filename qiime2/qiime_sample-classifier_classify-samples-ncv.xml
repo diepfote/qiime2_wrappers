@@ -17,7 +17,7 @@ qiime sample-classifier classify-samples-ncv
 #end if
 
 
-#if $pcv:
+#if str($pcv):
  --p-cv=$pcv
 #end if
 
@@ -32,7 +32,7 @@ qiime sample-classifier classify-samples-ncv
 #end if
 
 
-#if $pnestimators:
+#if str($pnestimators):
  --p-n-estimators=$pnestimators
 #end if
 

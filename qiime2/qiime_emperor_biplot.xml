@@ -40,7 +40,7 @@ qiime emperor biplot
  --p-ignore-missing-samples
 #end if
 
-#if $pnumberoffeatures:
+#if str($pnumberoffeatures):
  --p-number-of-features=$pnumberoffeatures
 #end if
  

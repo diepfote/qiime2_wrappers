@@ -32,7 +32,7 @@ qiime diversity adonis
 
 
 
-#if $ppermutations:
+#if str($ppermutations):
  --p-permutations=$ppermutations
 #end if
 

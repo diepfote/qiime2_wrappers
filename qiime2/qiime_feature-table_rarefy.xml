@@ -8,7 +8,10 @@
 qiime feature-table rarefy
 
 --i-table=$itable
---p-sampling-depth="$psamplingdepth"
+
+#if str($psamplingdepth):
+ --p-sampling-depth="$psamplingdepth"
+#end if
 
 #if $pwithreplacement:
  --p-with-replacement

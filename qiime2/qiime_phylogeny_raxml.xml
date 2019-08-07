@@ -13,7 +13,7 @@ qiime phylogeny raxml
  --p-seed="$pseed"
 #end if
 
-#if $pnsearches:
+#if str($pnsearches):
  --p-n-searches=$pnsearches
 #end if
 

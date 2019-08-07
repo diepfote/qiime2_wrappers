@@ -10,7 +10,7 @@ qiime diversity procrustes-analysis
 --i-reference=$ireference
 --i-other=$iother
 
-#if $pdimensions:
+#if str($pdimensions):
  --p-dimensions=$pdimensions
 #end if
 

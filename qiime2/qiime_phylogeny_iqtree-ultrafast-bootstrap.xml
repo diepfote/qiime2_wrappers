@@ -20,7 +20,7 @@ qiime phylogeny iqtree-ultrafast-bootstrap
 #end if
 
 
-#if $pnruns:
+#if str($pnruns):
  --p-n-runs=$pnruns
 #end if
 
@@ -28,7 +28,7 @@ qiime phylogeny iqtree-ultrafast-bootstrap
  --p-substitution-model=$psubstitutionmodel
 #end if
 
-#if $pbootstrapreplicates:
+#if str($pbootstrapreplicates):
  --p-bootstrap-replicates=$pbootstrapreplicates
 #end if
 

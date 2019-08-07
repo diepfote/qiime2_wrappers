@@ -18,7 +18,7 @@ qiime sample-classifier regress-samples
  --p-step=$pstep
 #end if
 
-#if $pcv:
+#if str($pcv):
  --p-cv=$pcv
 #end if
 

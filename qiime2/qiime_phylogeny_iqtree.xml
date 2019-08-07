@@ -19,7 +19,7 @@ qiime phylogeny iqtree
  --p-n-cores="$pncores"
 #end if
 
-#if $pnruns:
+#if str($pnruns):
  --p-n-runs=$pnruns
 #end if
 

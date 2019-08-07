@@ -24,11 +24,11 @@ qiime diversity beta-correlation
  --p-method=$pmethod
 #end if
 
-#if $ppermutations:
+#if str($ppermutations):
  --p-permutations=$ppermutations
 #end if
 
-#if $pintersectids:
+#if str($pintersectids):
  --p-intersect-ids
 #end if
 

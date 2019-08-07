@@ -8,7 +8,11 @@
 qiime diversity alpha-rarefaction
 
 --i-table=$itable
---p-max-depth="$pmaxdepth"
+
+
+#if str($pmaxdepth):
+ --p-max-depth="$pmaxdepth"
+#end if
 
 #if str($iphylogeny) != 'None':
  --i-phylogeny=$iphylogeny
@@ -19,15 +23,15 @@ qiime diversity alpha-rarefaction
 #end if
 
 
-#if $pmindepth:
+#if str($pmindepth):
  --p-min-depth=$pmindepth
 #end if
 
-#if $psteps:
+#if str($psteps):
  --p-steps=$psteps
 #end if
 
-#if $piterations:
+#if str($piterations):
  --p-iterations=$piterations
 #end if
 

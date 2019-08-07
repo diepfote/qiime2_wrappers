@@ -8,17 +8,20 @@
 qiime dada2 denoise-single
 
 --i-demultiplexed-seqs=$idemultiplexedseqs
---p-trunc-len="$ptrunclen"
 
-#if $ptrimleft:
+#if str($ptrunclen):
+ --p-trunc-len="$ptrunclen"
+#end if
+
+#if str($ptrimleft):
  --p-trim-left=$ptrimleft
 #end if
 
-#if $pmaxee:
+#if str($pmaxee):
  --p-max-ee=$pmaxee
 #end if
 
-#if $ptruncq:
+#if str($ptruncq):
  --p-trunc-q=$ptruncq
 #end if
 
@@ -26,7 +29,7 @@ qiime dada2 denoise-single
  --p-chimera-method=$pchimeramethod
 #end if
 
-#if $pminfoldparentoverabundance:
+#if str($pminfoldparentoverabundance):
  --p-min-fold-parent-over-abundance=$pminfoldparentoverabundance
 #end if
 
@@ -36,11 +39,11 @@ qiime dada2 denoise-single
 #end if
 
 
-#if $pnreadslearn:
+#if str($pnreadslearn):
  --p-n-reads-learn=$pnreadslearn
 #end if
 
-#if $pnohashedfeatureids:
+#if str($pnohashedfeatureids):
  --p-no-hashed-feature-ids
 #end if
 

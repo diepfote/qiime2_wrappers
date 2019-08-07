@@ -9,7 +9,10 @@ qiime quality-control evaluate-taxonomy
 
 --i-expected-taxa=$iexpectedtaxa
 --i-observed-taxa=$iobservedtaxa
---p-depth="$pdepth"
+
+#if str($pdepth):
+ --p-depth="$pdepth"
+#end if
 
 #if str($ifeaturetable) != 'None':
  --i-feature-table=$ifeaturetable

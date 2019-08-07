@@ -29,11 +29,11 @@ qiime diversity beta-group-significance
  --p-method=$pmethod
 #end if
 
-#if $ppairwise:
+#if str($ppairwise):
  --p-pairwise
 #end if
 
-#if $ppermutations:
+#if str($ppermutations):
  --p-permutations=$ppermutations
 #end if
 

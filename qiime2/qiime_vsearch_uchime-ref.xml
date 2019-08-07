@@ -15,7 +15,7 @@ qiime vsearch uchime-ref
  --p-dn=$pdn
 #end if
 
-#if $pmindiffs:
+#if str($pmindiffs):
  --p-mindiffs=$pmindiffs
 #end if
 
@@ -27,7 +27,7 @@ qiime vsearch uchime-ref
  --p-minh=$pminh
 #end if
 
-#if $pxn:
+#if str($pxn):
  --p-xn=$pxn
 #end if
 

@@ -9,19 +9,19 @@ qiime quality-filter q-score
 
 --i-demux=$idemux
 
-#if $pminquality:
+#if str($pminquality):
  --p-min-quality=$pminquality
 #end if
 
-#if $pqualitywindow:
+#if str($pqualitywindow):
  --p-quality-window=$pqualitywindow
 #end if
 
-#if $pminlengthfraction:
+#if str($pminlengthfraction):
  --p-min-length-fraction=$pminlengthfraction
 #end if
 
-#if $pmaxambiguous:
+#if str($pmaxambiguous):
  --p-max-ambiguous=$pmaxambiguous
 #end if
 
