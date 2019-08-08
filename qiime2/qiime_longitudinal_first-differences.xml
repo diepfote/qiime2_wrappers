@@ -8,8 +8,17 @@
 qiime longitudinal first-differences
 
 --p-state-column="$pstatecolumn"
---p-individual-id-column="$pindividualidcolumn"
 --p-metric="$pmetric"
+
+
+
+#if '__pd__' in str($pindividualidcolumn):
+	#set $pwhere_temp = $pindividualidcolumn.replace('__pd__', "#")
+	#set $pindividualidcolumn = $pwhere_temp
+#end if
+--p-individual-id-column="$pindividualidcolumn"
+
+
 
 #if str($itable) != 'None':
  --i-table=$itable
@@ -53,7 +62,7 @@ cp ofirstdifferences.qza $ofirstdifferences
 		</param>
 		<param label="--p-baseline: NUMBER    A value listed in the state-column metadata column against which all other states should be compared. Toggles calculation of static differences instead of first differences (which are calculated if no value is given for baseline). If a 'baseline' value is provided, sample differences at each state are compared against the baseline state, instead of the previous state. Must be a value listed in the state-column.                              [optional]" name="pbaseline" optional="True" type="float"/>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file  [required]">
+		<repeat name="input_files_mmetadatafile" optional="False" title="--m-metadata-file  [required]">
 			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
 		</repeat>
 

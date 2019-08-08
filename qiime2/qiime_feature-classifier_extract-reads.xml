@@ -5,9 +5,21 @@
 		<requirement type="package" version="2019.4">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
+
+
+#if str( $input_sequences.selector ) == 'history'
+	#set $seq = $input_sequences.i_sequences
+
+#else:
+	qiime tools import --type 'FeatureData[Sequence]' --input-path '$input_sequences.i_sequences.fields.path' --output-path database.qza;
+	#set $seq = 'database.qza'
+#end if
+
+
 qiime feature-classifier extract-reads
 
---i-sequences=$isequences
+--i-sequences=$seq
+
 --p-f-primer="$pfprimer"
 --p-r-primer="$prprimer"
 
@@ -36,7 +48,21 @@ qiime feature-classifier extract-reads
 cp oreads.qza $oreads
 	]]></command>
 	<inputs>
-		<param format="qza,no_unzip.zip" label="--i-sequences: ARTIFACT FeatureData[Sequence] [required]" name="isequences" optional="False" type="data"/>
+		<conditional name="input_sequences" optional="False">
+		   <param name="selector" type="select" label="--i-sequences: FeatureData[Sequence] [required] - Reference sequences to query">
+			  <option value="cached">Public databases</option>
+			  <option value="history">Databases from your history</option>
+		   </param>
+		   <when value="cached">
+			  <param name="i_sequences" label="--i-sequences: FeatureData[Sequence] [required] - Reference sequences" type="select" optional="True">
+				 <options from_data_table="qiime_rep_set" />
+			  </param>
+		   </when>
+		   <when value="history">
+			  <param name="i_sequences" type="data" format="qza,no_unzip.zip" label="Reference databases" optional="True" />
+		   </when>
+		</conditional>
+
 		<param label="--p-f-primer: TEXT       forward primer sequence                   [required]" name="pfprimer" optional="False" type="text"/>
 		<param label="--p-r-primer: TEXT       reverse primer sequence                   [required]" name="prprimer" optional="False" type="text"/>
 		<param label="--p-trunc-len: INTEGER   read is cut to trunc-len if trunc-len is positive. Applied before trim-left.               [default: 0]" name="ptrunclen" optional="True" type="integer" value="0"/>

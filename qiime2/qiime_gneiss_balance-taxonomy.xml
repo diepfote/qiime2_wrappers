@@ -7,22 +7,26 @@
 	<command><![CDATA[
 qiime gneiss balance-taxonomy
 
+
+#if str( $id_to_taxonomy_fp.selector ) == 'history'
+	#set $tax = $id_to_taxonomy_fp.taxonomy_fp
+	--i-taxonomy '$tax'
+#else:
+	#set $tax = $id_to_taxonomy_fp.taxonomy_fp.fields.path
+	--i-taxonomy '$tax'
+#end if
+
+
 --i-table=$itable
 --i-tree=$itree
---i-taxonomy=$itaxonomy
 --p-balance-name="$pbalancename"
 
 
-#if $input_files_mmetadatafile:
-#def list_dict_to_string(list_dict):
-	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-	#for d in list_dict[1:]:
-		#set $file_list = $file_list + ' --m-metadata-file=' + d['additional_input'].__getattr__('file_name')
-	#end for
-	#return $file_list
-#end def
- --m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
+
+#if $metadatafile:
+ --m-metadata-file=$metadatafile
 #end if
+
 
 
 #if str($ppseudocount):
@@ -51,6 +55,22 @@ qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir 
 && mv '$ovisualization.files_path/index.html' '$ovisualization'
 	]]></command>
 	<inputs>
+
+		<conditional name="id_to_taxonomy_fp" optional="True">
+		   <param name="selector" type="select" label="Reference taxonomy to query">
+			  <option value="cached">Public databases</option>
+			  <option value="history">Databases from your history</option>
+		   </param>
+		   <when value="cached">
+			  <param argument="--taxonomy_fp" label="Reference taxonomy" type="select" optional="True">
+				 <options from_data_table="qiime_taxonomy" />
+			  </param>
+		   </when>
+		   <when value="history">
+			  <param argument="--taxonomy_fp" type="data" format="qza,no_unzip.zip" label="Reference databases" optional="True" />
+		   </when>
+		</conditional>
+
 		<param format="qza,no_unzip.zip" label="--i-table: ARTIFACT FeatureTable[Frequency] A table of abundances.                    [required]" name="itable" optional="False" type="data"/>
 		<param format="qza,no_unzip.zip" label="--i-tree: ARTIFACT       The tree used to calculate the balances. Hierarchy                                                       [required]" name="itree" optional="False" type="data"/>
 		<param format="qza,no_unzip.zip" label="--i-taxonomy: ARTIFACT FeatureData[Taxonomy] Taxonomy information for the OTUs.        [required]" name="itaxonomy" optional="False" type="data"/>
@@ -61,9 +81,7 @@ qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir 
 		<param label="--p-threshold: NUMBER    A threshold to designate discrete categories for a numerical metadata column. This will split the numerical column values into two categories, values below the threshold, and values above the threshold. If not specified, this threshold will default to the mean.                                     [optional]" name="pthreshold" optional="True" type="float"/>
 		<param label="--m-metadata-column: COLUMN  MetadataColumn[Categorical | Numeric] Metadata column for plotting the balance (optional).                               [optional]" name="mmetadatacolumn" optional="True" type="text"/>
 
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file">
-			<param label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [optional]" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
-		</repeat>
+		<param label="--m-metadata-file METADATA" name="metadatafile" type="data" format="tabular,qza,no_unzip.zip"  optional="True" />
 
 	</inputs>
 	<outputs>

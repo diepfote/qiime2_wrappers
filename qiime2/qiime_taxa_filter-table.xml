@@ -7,8 +7,6 @@
 	<command><![CDATA[
 qiime taxa filter-table
 
---i-table=$itable
-
 
 #if str( $id_to_taxonomy_fp.selector ) == 'history'
 	#set $tax = $id_to_taxonomy_fp.taxonomy_fp
@@ -18,6 +16,8 @@ qiime taxa filter-table
 	--i-taxonomy '$tax'
 #end if
 
+
+--i-table=$itable
 
 #if str($pinclude):
  --p-include="$pinclude"

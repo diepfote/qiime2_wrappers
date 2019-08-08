@@ -5,6 +5,62 @@
 		<requirement type="package" version="2019.4">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
+
+#def parse_file(file):
+	#import csv
+	#set $read = csv.reader(open($file, "r"))
+	#set $qc = 0
+	#for l in $read:
+	#if "50%" in l:
+	#set $num = 0.0
+	#for i in l[1:]:
+	#if float(i) <= 25.0
+	#set $num = i
+	#set $qc = l.index($num) - 1
+	#break
+	#end if
+	#end for
+	#end if
+#end for
+#return $qc
+#end def
+
+#def find_QC(file):
+	#set $f_file_path=str(file).split(".dat")[0] + '_files/forward-seven-number-summaries.csv'
+	#set $r_file_path=str(file).split(".dat")[0] + '_files/reverse-seven-number-summaries.csv'
+	#set $qc_f = $parse_file($f_file_path)
+	#set $qc_r = $parse_file($r_file_path)
+	#return $qc_f, $qc_r
+#end def
+
+#def find_adapters(mapping_fp):
+	#import csv
+	#set $forward = 0
+	#set $reversed = 0
+	#set $reader = csv.reader(open(str(mapping_fp)), delimiter='\t')
+	#for row in $reader:
+	#if "#" not in str(row[0]):
+	#set $forward = len(row[2])
+	#set $reversed = len(row[3])
+	#break
+	#end if
+	#end for
+#return int($forward), int($reversed)
+#end def
+
+#if str($mapping_fp) != 'None' and (int($ptrimleftf) == -1 or int($ptrimleftr) == -1):
+	#set $both_adapters = $find_adapters($mapping_fp)
+	#set $ptrimleftf=$both_adapters[0]
+	#set $ptrimleftr=$both_adapters[1]
+#end if
+
+#if str($sum_fp) != 'None' and (int($ptrunclenf) == -1 or int($ptrunclenr) == -1):
+	#set $both_qc = $find_QC($sum_fp)
+	#set $ptrunclenf=$both_qc[0]
+	#set $ptrunclenr=$both_qc[1]
+#end if
+
+
 qiime dada2 denoise-paired
 
 --i-demultiplexed-seqs=$idemultiplexedseqs
@@ -49,7 +105,7 @@ qiime dada2 denoise-paired
 #end if
 
 
-#if $pnreadslearn:
+#if str($pnreadslearn):
  --p-n-reads-learn=$pnreadslearn
 #end if
 
@@ -66,6 +122,9 @@ cp orepresentativesequences.qza $orepresentativesequences;
 cp odenoisingstats.qza $odenoisingstats
 	]]></command>
 	<inputs>
+		<param format="tabular" label="Mapping file where 3rd and 4th columns must be forward and reverse primers respectively" name="mapping_fp" optional="True" type="data"/>
+		<param format="html" label="Summary file" name="sum_fp" optional="True" type="data"/>
+
 		<param format="qza,no_unzip.zip" label="--i-demultiplexed-seqs: ARTIFACT SampleData[PairedEndSequencesWithQuality] The paired-end demultiplexed sequences to be denoised.                                  [required]" name="idemultiplexedseqs" optional="False" type="data"/>
 		<param label="--p-trunc-len-f: INTEGER Position at which forward read sequences should be truncated due to decrease in quality. This truncates the 3' end of the of the input sequences, which will be the bases that were sequenced in the last cycles. Reads that are shorter than this value will be discarded. After this parameter is applied there must still be at least a 20 nucleotide overlap between the forward and reverse reads. If 0 is provided, no truncation or length filtering will be performed [required]" name="ptrunclenf" optional="False" value="" type="integer"/>
 		<param label="--p-trunc-len-r: INTEGER Position at which reverse read sequences should be truncated due to decrease in quality. This truncates the 3' end of the of the input sequences, which will be the bases that were sequenced in the last cycles. Reads that are shorter than this value will be discarded. After this parameter is applied there must still be at least a 20 nucleotide overlap between the forward and reverse reads. If 0 is provided, no truncation or length filtering will be performed [required]" name="ptrunclenr" optional="False" value="" type="integer"/>

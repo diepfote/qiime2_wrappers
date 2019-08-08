@@ -7,8 +7,17 @@
 	<command><![CDATA[
 qiime feature-classifier classify-sklearn
 
+
+#if str( $id_to_classifier_fp.selector ) == 'history'
+#set $classifier = $id_to_classifier_fp.classifier_fp
+--i-classifier '$classifier'
+#else:
+#set $classifier = $id_to_classifier_fp.classifier_fp.fields.path
+--i-classifier '$classifier'
+#end if
+
+
 --i-reads=$ireads
---i-classifier=$iclassifier
 
 #set $pnjobs = '${GALAXY_SLOTS:-4}'
 
@@ -17,8 +26,10 @@ qiime feature-classifier classify-sklearn
 #end if
 
 
-#if $pconfidence:
- --p-confidence=$pconfidence
+#if str($pconfidence) != '':
+  #if float($pconfidence) >= 0.0:
+	--p-confidence=$pconfidence
+  #end if
 #end if
 
 #if str($preadorientation) != 'None':
@@ -30,8 +41,22 @@ qiime feature-classifier classify-sklearn
 cp oclassification.qza $oclassification
 	]]></command>
 	<inputs>
+		<conditional name="id_to_classifier_fp" optional="True">
+		   <param name="selector" type="select" label="Reference classifier to query">
+			  <option value="cached">Public classifiers</option>
+			  <option value="history">Classifiers from your history</option>
+		   </param>
+		   <when value="cached">
+			  <param name="classifier_fp" label="Reference classifier" type="select" optional="True">
+				 <options from_data_table="qiime_rep_set" />
+			  </param>
+		   </when>
+		   <when value="history">
+			  <param name="classifier_fp" type="data" format="qza,no_unzip.zip" label="Reference classifier" optional="True" />
+		   </when>
+		</conditional>
+
 		<param format="qza,no_unzip.zip" label="--i-reads: ARTIFACT FeatureData[Sequence] The feature data to be classified.         [required]" name="ireads" optional="False" type="data"/>
-		<param format="qza,no_unzip.zip" label="--i-classifier: ARTIFACT TaxonomicClassifier  The taxonomic classifier for classifying the reads. [required]" name="iclassifier" optional="False" type="data"/>
 		<param label="--p-confidence: NUMBER  Confidence threshold for limiting taxonomic depth. Provide -1 to disable confidence calculation, or 0 to calculate confidence but not apply it to limit the taxonomic depth of the assignments.    [default: 0.7]" name="pconfidence" optional="True" type="float" value="0.7"/>
 		<param label="--p-read-orientation: " name="preadorientation" optional="True" type="select">
 			<option selected="True" value="None">Selection is Optional</option>
