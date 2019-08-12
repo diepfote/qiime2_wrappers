@@ -9,17 +9,15 @@ qiime composition ancom
 
 --i-table=$itable
 
-#if $input_files_mmetadatafile:
-#def list_dict_to_string(list_dict):
-  #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-  #for d in list_dict[1:]:
-	  #set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
-  #end for
-  #return $file_list
-#end def
+
+
+#if $metadatafile:
+ --m-metadata-file=$metadatafile
 #end if
 
---m-metadata-file=$list_dict_to_string($input_files_mmetadatafile) --m-metadata-column="$mmetadatacolumn"
+
+
+--m-metadata-column="$mmetadatacolumn"
 
 #if str($pdifferencefunction) != 'None':
 --p-difference-function=$pdifferencefunction
@@ -37,9 +35,10 @@ qiime tools export --input-path ovisualization.qzv --output-path out   && mkdir 
   ]]></command>
 	<inputs>
 		<param format="qza,no_unzip.zip" label="--i-table: FeatureTable[Composition] - The feature table to be used for ANCOM computation.  [required]" name="itable" optional="False" type="data"/>
-		<repeat name="input_files_mmetadatafile" optional="False" title="--m-metadata-file">
-			<param format="tabular" label="--m-metadata-file: Metadata file or artifact viewable as metadata. This option may be supplied multiple times to merge metadata. [required]" name="additional_input" type="data"/>
-		</repeat>
+
+		<param label="--m-metadata-file METADATA" name="metadatafile" type="data" format="tabular,qza,no_unzip.zip" optional="True" />
+
+
 		<param label="--m-metadata-column: MetadataColumn[Categorical] - Column from metadata file or artifact viewable as metadata. The categorical sample metadata column to test for differential abundance across.  [required]" name="mmetadatacolumn" optional="False" type="text"/>
 		<param label="--p-difference-function: " name="pdifferencefunction" optional="True" type="select">
 			<option selected="True" value="None">Selection is Optional</option>

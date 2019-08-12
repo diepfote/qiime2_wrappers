@@ -57,16 +57,12 @@ qiime diversity beta-correlation
 
 
 
-#if $input_files_mmetadatafile:
-#def list_dict_to_string(list_dict):
-#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
-#for d in list_dict[1:]:
-	#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
-#end for
-#return $file_list
-#end def
---m-metadata-file=$list_dict_to_string($input_files_mmetadatafile)
+#if $metadatafile:
+ --m-metadata-file=$metadatafile
 #end if
+
+
+
 
 --o-metadata-distance-matrix=ometadatadistancematrix
 --o-mantel-scatter-visualization=omantelscattervisualization
@@ -88,9 +84,9 @@ qiime tools export --input-path omantelscattervisualization.qzv --output-path ou
 		<param label="--p-intersect-ids: --p-no-intersect-ids If supplied, IDs that are not found in both distance matrices will be discarded before applying the Mantel test. Default behavior is to error on any mismatched IDs.                                   [default: False]" name="pintersectids" selected="False" type="boolean"/>
 		<param label="--p-label1: TEXT      Label for `distance-matrix` in the output visualization.                    [default: 'Metadata']" name="plabel1" optional="True" type="text" value="Metadata"/>
 		<param label="--p-label2: TEXT      Label for `metadata-distance-matrix` in the output visualization.             [default: 'Distance Matrix']" name="plabel2" optional="True" type="text" value="Distance Matrix"/>
-		<repeat name="input_files_mmetadatafile" optional="True" title="--m-metadata-file  [required]">
-			<param label="--m-metadata-file" name="additional_input" type="data" format="tabular,qza,no_unzip.zip" />
-		</repeat>
+
+		<param label="--m-metadata-file METADATA" name="metadatafile" type="data" format="tabular,qza,no_unzip.zip" optional="True" />
+
 	</inputs>
 	<outputs>
 		<data format="qza" label="${tool.name} on ${on_string}: metadatadistancematrix.qza" name="ometadatadistancematrix"/>
