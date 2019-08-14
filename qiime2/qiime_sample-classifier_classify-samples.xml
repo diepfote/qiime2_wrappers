@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_sample-classifier_classify-samples" name="qiime sample-classifier classify-samples" version="2019.4">
+<tool id="qiime_sample-classifier_classify-samples" name="qiime sample-classifier classify-samples" version="2019.7">
 	<description> - Train and test a cross-validated supervised learning classifier.</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime sample-classifier classify-samples
@@ -64,12 +64,14 @@ qiime sample-classifier classify-samples
 
 
 
+--o-probabilities=oprobabilities
 --o-sample-estimator=osampleestimator
 --o-feature-importance=ofeatureimportance
 --o-predictions=opredictions
 --o-model-summary=omodelsummary
 --o-accuracy-results=oaccuracyresults
 ;
+cp oprobabilities.qza $oprobabilities;
 cp osampleestimator.qza $osampleestimator;
 cp ofeatureimportance.qza $ofeatureimportance;
 cp opredictions.qza $opredictions;
@@ -143,6 +145,7 @@ qiime tools export --input-path oaccuracyresults.qzv --output-path out   && mkdi
 
 	</inputs>
 	<outputs>
+		<data format="qza" label="${tool.name} on ${on_string}: probabilities.qza" name="oprobabilities"/>
 		<data format="qza" label="${tool.name} on ${on_string}: sampleestimator.qza" name="osampleestimator"/>
 		<data format="qza" label="${tool.name} on ${on_string}: featureimportance.qza" name="ofeatureimportance"/>
 		<data format="qza" label="${tool.name} on ${on_string}: predictions.qza" name="opredictions"/>
@@ -213,6 +216,8 @@ model_summary : Visualization
     the trained estimator.
 accuracy_results : Visualization
     Accuracy results visualization.
+probabilities : SampleData[Probabilities]
+    Predicted class probabilities for each input sample.
 	]]></help>
 <macros>
     <import>qiime_citation.xml</import>

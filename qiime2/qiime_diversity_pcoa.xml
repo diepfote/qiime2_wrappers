@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_diversity_pcoa" name="qiime diversity pcoa" version="2019.4">
+<tool id="qiime_diversity_pcoa" name="qiime diversity pcoa" version="2019.7">
 	<description> - Principal Coordinate Analysis</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime diversity pcoa

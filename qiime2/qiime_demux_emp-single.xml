@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_demux_emp-single" name="qiime demux emp-single" version="2019.4">
+<tool id="qiime_demux_emp-single" name="qiime demux emp-single" version="2019.7">
 	<description> - Demultiplex sequence data generated with the EMP protocol.</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime demux emp-single
@@ -15,7 +15,7 @@ qiime demux emp-single
 #def list_dict_to_string(list_dict):
 #set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
 #for d in list_dict[1:]:
-	#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+	#set $file_list = $file_list + ' --m-barcodes-file=' + d['additional_input'].__getattr__('file_name')
 #end for
 #return $file_list
 #end def

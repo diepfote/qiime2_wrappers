@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_vsearch_cluster-features-closed-reference" name="qiime vsearch cluster-features-closed-reference" version="2019.4">
+<tool id="qiime_vsearch_cluster-features-closed-reference" name="qiime vsearch cluster-features-closed-reference" version="2019.7">
 	<description> -  Closed-reference clustering of features.</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime vsearch cluster-features-closed-reference

@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_feature-table_group" name="qiime feature-table group" version="2019.4">
+<tool id="qiime_feature-table_group" name="qiime feature-table group" version="2019.7">
 	<description> - Group samples or features by a metadata column</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime feature-table group

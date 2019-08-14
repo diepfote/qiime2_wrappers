@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_cutadapt_demux-paired" name="qiime cutadapt demux-paired" version="2019.4">
+<tool id="qiime_cutadapt_demux-paired" name="qiime cutadapt demux-paired" version="2019.7">
 	<description> - Demultiplex paired-end sequence data with barcodes in- sequence.</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime cutadapt demux-paired
@@ -13,7 +13,7 @@ qiime cutadapt demux-paired
 #def list_dict_to_string_forward(list_dict):
 	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
 	#for d in list_dict[1:]:
-		#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+		#set $file_list = $file_list + ' --m-forward-barcodes-file=' + d['additional_input'].__getattr__('file_name')
 	#end for
 	#return $file_list
 #end def
@@ -24,11 +24,21 @@ qiime cutadapt demux-paired
 #def list_dict_to_string_reverse(list_dict):
 	#set $file_list = list_dict[0]['additional_input'].__getattr__('file_name')
 	#for d in list_dict[1:]:
-		#set $file_list = $file_list + ',' + d['additional_input'].__getattr__('file_name')
+		#set $file_list = $file_list + ' --m-reverse-barcodes-file=' + d['additional_input'].__getattr__('file_name')
 	#end for
 	#return $file_list
 #end def
 --m-reverse-barcodes-file=$list_dict_to_string_reverse($input_files_mreversebarcodesfile)
+#end if
+
+
+
+#if str($pbatchsize):
+  --p-batch-size $pbatchsize
+#end if
+
+#if str($pminimumlength):
+  --p-minimum-length $pminimumlength
 #end if
 
 
@@ -44,10 +54,6 @@ qiime cutadapt demux-paired
   #set $mforwardbarcodescolumn = $mforwardbarcodescolumn_temp
 #end if
 
-#if str($mforwardbarcodescolumn):
---m-forward-barcodes-column="$mforwardbarcodescolumn"
-#end if
-
 
 
 
@@ -61,13 +67,19 @@ qiime cutadapt demux-paired
   #set $mreversebarcodescolumn = $mreversebarcodescolumn_temp
 #end if
 
+
+
+#if str($mforwardbarcodescolumn):
+--m-forward-barcodes-column="$mforwardbarcodescolumn"
+#end if
+
 #if str($mreversebarcodescolumn):
  --m-reverse-barcodes-column="$mreversebarcodescolumn"
 #end if
 
 
 
-#if $perrorrate:
+#if str($perrorrate):
  --p-error-rate=$perrorrate
 #end if
 
@@ -81,6 +93,12 @@ cp opersamplesequences.qza $opersamplesequences;
 cp ountrimmedsequences.qza $ountrimmedsequences
 	]]></command>
 	<inputs>
+
+		<param label="--p-batch-size:  INTEGER  The number of samples cutadapt demultiplexes Range(0, None) concurrently. Demultiplexing in smaller batches will yield the same result with marginal speed loss, and may solve 'too many files' errors related to sample quantity. Set to '0' to process all samples at once. [default: 0]" name="pbatchsize" optional="True" type="integer" value="0" min="0"/>
+		<param label="--p-minimum-length: INTEGER  Range(1, None) Discard reads shorter than specified value. Note, the cutadapt default of 0 has been overridden, because that value produces empty sequence records.  [default: 1]" name="pminimumlength" optional="True" type="integer" value="1" min="1"/>
+
+
+
 		<param format="qza,no_unzip.zip" label="--i-seqs: ARTIFACT MultiplexedPairedEndBarcodeInSequence The paired-end sequences to be demultiplexed. [required]" name="iseqs" optional="False" type="data"/>
 		<param label="--m-forward-barcodes-column: COLUMN  MetadataColumn[Categorical] The sample metadata column listing the per-sample barcodes for the forward reads.           [required]" name="mforwardbarcodescolumn" optional="False" type="text"/>
 		<param label="--m-reverse-barcodes-column: COLUMN  MetadataColumn[Categorical] The sample metadata column listing the per-sample barcodes for the reverse reads.           [optional]" name="mreversebarcodescolumn" optional="True" type="text"/>
@@ -101,7 +119,7 @@ cp ountrimmedsequences.qza $ountrimmedsequences
 	</outputs>
 	<help><![CDATA[
 Demultiplex paired-end sequence data with barcodes in-sequence.
-###############################################################
+################################################################
 
 Demultiplex sequence data (i.e., map barcode reads to sample ids). Barcodes
 are expected to be located within the sequence data (versus the header, or
@@ -120,6 +138,15 @@ reverse_barcodes : MetadataColumn[Categorical], optional
 error_rate : Float % Range(0, 1, inclusive_end=True), optional
     The level of error tolerance, specified as the maximum allowable error
     rate.
+batch_size : Int % Range(0, None), optional
+    The number of samples cutadapt demultiplexes concurrently.
+    Demultiplexing in smaller batches will yield the same result with
+    marginal speed loss, and may solve "too many files" errors related to
+    sample quantity. Set to "0" to process all samples at once.
+minimum_length : Int % Range(1, None), optional
+    Discard reads shorter than specified value. Note, the cutadapt default
+    of 0 has been overridden, because that value produces empty sequence
+    records.
 
 Returns
 -------

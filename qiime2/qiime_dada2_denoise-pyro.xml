@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_dada2_denoise-pyro" name="qiime dada2 denoise-pyro" version="2019.4">
+<tool id="qiime_dada2_denoise-pyro" name="qiime dada2 denoise-pyro" version="2019.7">
 	<description> - Denoise and dereplicate single-end pyrosequences</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime dada2 denoise-pyro

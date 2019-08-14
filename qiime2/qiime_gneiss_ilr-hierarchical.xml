@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_gneiss_ilr-hierarchical" name="qiime gneiss ilr-hierarchical" version="2019.4">
+<tool id="qiime_gneiss_ilr-hierarchical" name="qiime gneiss ilr-hierarchical" version="2019.7">
 	<description> - Isometric Log-ratio Transform applied to a hierarchical clustering</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime gneiss ilr-hierarchical

@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_diversity_alpha-group-significance" name="qiime diversity alpha-group-significance" version="2019.4">
+<tool id="qiime_diversity_alpha-group-significance" name="qiime diversity alpha-group-significance" version="2019.7">
 	<description> - Alpha diversity comparisons</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime diversity alpha-group-significance

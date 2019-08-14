@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_deblur_denoise-16S" name="qiime deblur denoise-16S" version="2019.4">
+<tool id="qiime_deblur_denoise-16S" name="qiime deblur denoise-16S" version="2019.7">
 	<description> - Deblur sequences using a 16S positive filter.</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime deblur denoise-16S

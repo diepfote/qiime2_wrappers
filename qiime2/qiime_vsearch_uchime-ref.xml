@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_vsearch_uchime-ref" name="qiime vsearch uchime-ref" version="2019.4">
+<tool id="qiime_vsearch_uchime-ref" name="qiime vsearch uchime-ref" version="2019.7">
 	<description> - Reference-based chimera filtering with vsearch.</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime vsearch uchime-ref

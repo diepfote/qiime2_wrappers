@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<tool id="qiime_longitudinal_feature-volatility" name="qiime longitudinal feature-volatility" version="2019.4">
+<tool id="qiime_longitudinal_feature-volatility" name="qiime longitudinal feature-volatility" version="2019.7">
 	<description> - Feature volatility analysis</description>
 	<requirements>
-		<requirement type="package" version="2019.4">qiime2</requirement>
+		<requirement type="package" version="2019.7">qiime2</requirement>
 	</requirements>
 	<command><![CDATA[
 qiime longitudinal feature-volatility
