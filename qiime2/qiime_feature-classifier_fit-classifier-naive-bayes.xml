@@ -11,7 +11,7 @@
 	#set $tax = $id_to_taxonomy_fp.taxonomy_fp
 #else:
 	#set $tax_path = $id_to_taxonomy_fp.taxonomy_fp.fields.path
-	qiime tools import --type 'FeatureData[Taxonomy]'  --source-format HeaderlessTSVTaxonomyFormat --input-path $tax_path --output-path ref-taxonomy.qza;
+	qiime tools import --type 'FeatureData[Taxonomy]'  --input-format HeaderlessTSVTaxonomyFormat --input-path $tax_path --output-path ref-taxonomy.qza;
 	#set $tax='ref-taxonomy.qza'
 #end if
 
